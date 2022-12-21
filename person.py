@@ -64,4 +64,3 @@ class MiddlePayClient(Client):
 class HighPayClient(Client):
     def __init__(self, name: str, client_info: ClientInfo):
         super().__init__(name, client_info)
-
