@@ -11,13 +11,13 @@ class MyTestCase(unittest.TestCase):
         product_history = ProductHistory([ProductHistoryUnit(1, 1, date.today()),
                                           ProductHistoryUnit(3, 6, date.today())])
         client_products = [
-            ClientProduct("Coffee", "g", "g", 10, 12456862, product_history)]
-        warehouse.set_products(client_products)
+            ClientProduct("Coffee", 10, 12456862, product_history, "g", "g")]
+        warehouse.products = client_products
 
         self.assertEqual("wb", warehouse.__str__())
-        self.assertEqual("Coffee (12456862)", warehouse.get_products()[0].__str__())
+        self.assertEqual("Coffee (12456862)", warehouse.products[0].__str__())
         self.assertEqual(f"{date.today()}: cost - 1; leftover - 1;\n{date.today()}: cost - 3; leftover - 6;\n",
-                         warehouse.get_products()[0].get_history().__str__())
+                         warehouse.products[0].history.__str__())
 
 
 if __name__ == '__main__':

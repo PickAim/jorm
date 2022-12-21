@@ -52,6 +52,7 @@ class Marketplace:
         return self.name
 
 
+@dataclass
 class UnknownMarketplace(Marketplace):
     categories: dict[str, Category]
 
@@ -62,5 +63,6 @@ class UnknownMarketplace(Marketplace):
         return self.categories[category_name].get_niche_by_name(niche_name)
 
 
+@dataclass
 class ClientMarketplace(Marketplace):
     products: list[ClientProduct]

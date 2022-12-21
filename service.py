@@ -41,6 +41,7 @@ class EconomyResult(Result):
     logistic_price: int
 
 
+@dataclass
 class FrequencyResult(Result):
     frequencies: dict[int, int]
 

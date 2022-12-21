@@ -9,7 +9,7 @@ class ProductHistoryUnit:
     unit_date: date
 
     def __str__(self) -> str:
-        return f'{self.unit_date} : cost {self.cost}; leftover - {self.leftover};'
+        return f'{self.unit_date}: cost - {self.cost}; leftover - {self.leftover};\n'
 
 
 class ProductHistory:
@@ -23,10 +23,10 @@ class ProductHistory:
         return result
 
     def get_costs_pairs(self) -> dict[date, int]:
-        return {unit.get_date: unit.get_cost for unit in self.__history}
+        return {unit.unit_date: unit.cost for unit in self.__history}
 
     def get_leftovers_pairs(self) -> dict[date, int]:
-        return {unit.get_date: unit.get_leftover() for unit in self.__history}
+        return {unit.unit_date: unit.leftover for unit in self.__history}
 
 
 @dataclass
@@ -40,10 +40,12 @@ class Product:
         return f'{self.name} ({self.article})'
 
 
+@dataclass
 class ClientProduct(Product):
     niche_name: str
     category_name: str
 
 
+@dataclass
 class MarketplaceProduct(Product):
     pass

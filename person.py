@@ -24,19 +24,19 @@ class Admin(User):
     pass
 
 
+@dataclass
 class Client(User):
-    def __init__(self, name: str, client_info: ClientInfo):
-        super().__init__(name)
-        self.__client_info: ClientInfo = client_info
+    name: str
+    client_info: ClientInfo
 
     def get_request_history(self) -> list[Result]:
-        return self.__client_info.request_history()
+        return self.client_info.request_history
 
     def get_marketplaces(self) -> list[ClientMarketplace]:
-        return self.__client_info.marketplaces()
+        return self.client_info.marketplaces
 
     def get_warehouses(self) -> list[Warehouse]:
-        return self.__client_info.warehouses()
+        return self.client_info.warehouses
 
 
 @dataclass
