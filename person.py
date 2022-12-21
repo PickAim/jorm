@@ -30,13 +30,13 @@ class Client(User):
         self.__client_info: ClientInfo = client_info
 
     def get_request_history(self) -> list[Result]:
-        return self.__client_info.get_request_history()
+        return self.__client_info.request_history()
 
     def get_marketplaces(self) -> list[ClientMarketplace]:
-        return self.__client_info.get_marketplaces()
+        return self.__client_info.marketplaces()
 
     def get_warehouses(self) -> list[Warehouse]:
-        return self.__client_info.get_warehouses()
+        return self.__client_info.warehouses()
 
 
 @dataclass
