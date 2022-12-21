@@ -1,39 +1,27 @@
+from dataclasses import dataclass
 from market.infrastructure import ClientMarketplace
 from market.infrastructure import Warehouse
 from service import Result
 
 
+@dataclass
 class ClientInfo:
-    def __init__(self, request_history: list[Result],
-                 marketplaces: list[ClientMarketplace], warehouses: list[Warehouse]):
-        self.__request_history: list[Result] = request_history
-        self.__marketplaces: list[ClientMarketplace] = marketplaces
-        self.__warehouses: list[Warehouse] = warehouses
-
-    def get_request_history(self) -> list[Result]:
-        return self.__request_history
-
-    def get_marketplaces(self) -> list[ClientMarketplace]:
-        return self.__marketplaces
-
-    def get_warehouses(self) -> list[Warehouse]:
-        return self.__warehouses
+    request_history: list[Result]
+    marketplaces: list[ClientMarketplace]
+    warehouses: list[Warehouse]
 
 
+@dataclass
 class User:
-    def __init__(self, name: str):
-        self.__name: str = name
+    name: str
 
     def __str__(self) -> str:
-        return self.__name
-
-    def get_name(self) -> str:
-        return self.__name
+        return self.name
 
 
+@dataclass
 class Admin(User):
-    def __init__(self, name: str):
-        super().__init__(name)
+    pass
 
 
 class Client(User):
@@ -51,16 +39,16 @@ class Client(User):
         return self.__client_info.get_warehouses()
 
 
+@dataclass
 class LowPayClient(Client):
-    def __init__(self, name: str, client_info: ClientInfo):
-        super().__init__(name, client_info)
+    pass
 
 
+@dataclass
 class MiddlePayClient(Client):
-    def __init__(self, name: str, client_info: ClientInfo):
-        super().__init__(name, client_info)
+    pass
 
 
+@dataclass
 class HighPayClient(Client):
-    def __init__(self, name: str, client_info: ClientInfo):
-        super().__init__(name, client_info)
+    pass
