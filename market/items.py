@@ -17,7 +17,7 @@ class ProductHistory:
         self.__history: list[ProductHistoryUnit] = history
 
     def __str__(self) -> str:
-        '\n'.join([str(unit) for unit in self.__history])
+        return '\n'.join([str(unit) for unit in self.__history])
 
     def get_costs_pairs(self) -> dict[date, int]:
         return {unit.unit_date: unit.cost for unit in self.__history}

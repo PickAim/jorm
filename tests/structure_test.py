@@ -16,7 +16,7 @@ class MyTestCase(unittest.TestCase):
 
         self.assertEqual("wb", warehouse.__str__())
         self.assertEqual("Coffee (12456862)", warehouse.products[0].__str__())
-        self.assertEqual(f"{date.today()}: cost - 1; leftover - 1;\n{date.today()}: cost - 3; leftover - 6;\n",
+        self.assertEqual(f"{date.today()}: cost - 1; leftover - 1;\n{date.today()}: cost - 3; leftover - 6;",
                          warehouse.products[0].history.__str__())
 
 
