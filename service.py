@@ -1,9 +1,10 @@
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from datetime import date
 
 
 @dataclass
-class Request:
+class Request(ABC):
     date: date
 
     def __init__(self, request_date: date):
@@ -28,7 +29,7 @@ class FrequencyRequest(Request):
 
 
 @dataclass
-class Result:
+class Result(ABC):
     request: Request
 
 

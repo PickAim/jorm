@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from market.items import Product
 from market.items import ClientProduct
@@ -5,8 +6,16 @@ from market.items import MarketplaceProduct
 
 
 @dataclass
-class Niche:
+class Niche(ABC):
     name: str
+    products: list[Product]
+
+    def __str__(self) -> str:
+        return self.name
+
+
+@dataclass
+class MarketplaceNiche(Niche):
     products: list[MarketplaceProduct]
 
     def __str__(self) -> str:
@@ -14,7 +23,7 @@ class Niche:
 
 
 @dataclass
-class Category:
+class Category(ABC):
     name: str
     niches: dict[str, Niche]
 
@@ -26,25 +35,25 @@ class Category:
 
 
 @dataclass
-class Address:
+class Address(ABC):
     # TODO think about fields declaration in this class (street, city, country, etc)
     address: str = ""
 
 
 @dataclass
-class Warehouse:
+class Warehouse(ABC):
     name: str
     global_id: int
     commission: int
     address: Address
-    products: list[Product] = None
+    products: list[Product]
 
     def __str__(self) -> str:
         return self.name
 
 
 @dataclass
-class Marketplace:
+class Marketplace(ABC):
     name: str
     warehouses: list[Warehouse]
 

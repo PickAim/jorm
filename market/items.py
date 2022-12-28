@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from datetime import date
 
@@ -27,7 +28,7 @@ class ProductHistory:
 
 
 @dataclass
-class Product:
+class Product(ABC):
     name: str
     cost: int
     article: int

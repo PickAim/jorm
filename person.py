@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from market.infrastructure import ClientMarketplace
 from market.infrastructure import Warehouse
@@ -12,7 +13,7 @@ class ClientInfo:
 
 
 @dataclass
-class User:
+class User(ABC):
     name: str
 
     def __str__(self) -> str:
