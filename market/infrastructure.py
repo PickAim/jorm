@@ -34,10 +34,13 @@ class Niche(ABC):
                                  unit_cost: int,
                                  storage_price: int) -> int:
         keys: list[int] = []
-        step: int = len(self.cost_data) // samples_count
-        for i in range(samples_count - 1):
-            keys.append(i * step)
-        keys.append(len(self.cost_data) - 1)
+        if len(self.cost_data) > samples_count:
+            step: int = len(self.cost_data) // samples_count
+            for i in range(samples_count - 1):
+                keys.append(i * step)
+            keys.append(len(self.cost_data) - 1)
+        else:
+            keys.extend([0, len(self.cost_data) - 1])
         for i in range(1, len(keys)):
             concurrent_margin: int = self.get_concurrent_margin(self.cost_data[keys[i - 1]:keys[i]].mean(), unit_cost,
                                                                 storage_price)
