@@ -49,6 +49,8 @@ class FrequencyResult(Result):
     frequencies: dict[int, int]
 
     def get_graph_coordinates(self) -> tuple[list[int], list[int]]:
-        x = [self.frequencies[key] for key in self.frequencies.keys()]
-        y = [self.frequencies[key] for key in self.frequencies.values()]
+        x, y = [], []
+        for key in self.frequencies.keys():
+            x.append(key)
+            y.append(self.frequencies[key])
         return x, y
