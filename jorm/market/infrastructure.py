@@ -49,6 +49,14 @@ class Niche(ABC):
                 return int(self.cost_data[keys[i - 1]:keys[i]].mean())
         return int(self.cost_data[-2:-1].mean())
 
+    def get_mean_product_volume(self) -> float:
+        if len(self.products) == 0:
+            return 0
+        summary_volume: float = 0
+        for product in self.products:
+            summary_volume += product.get_my_volume()
+        return summary_volume / len(self.products)
+
 
 @dataclass
 class MarketplaceNiche(Niche):
@@ -100,9 +108,9 @@ class Warehouse(ABC):
         return int(self.basic_storage_commission
                    + self.additional_storage_commission * liters)
 
-    def calculate_all_logistic(self, liters: float, returns_percent: float, units_count: int) -> int:
+    def calculate_once_logistic_price(self, liters: float, returns_percent: float) -> int:
         return self.calculate_logistic_to_customer_price(liters) \
-               + int(self.calculate_logistic_from_customer_price() * returns_percent * units_count)
+               + int(self.calculate_logistic_from_customer_price() * returns_percent)
 
 
 @dataclass

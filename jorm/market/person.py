@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from market.infrastructure import ClientMarketplace
-from market.infrastructure import Warehouse
-from service import Result
+from .infrastructure import ClientMarketplace
+from .infrastructure import Warehouse
+from .service import Result
 
 
 @dataclass

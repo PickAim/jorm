@@ -28,20 +28,43 @@ class ProductHistory:
 
 
 @dataclass
-class Product(ABC):
+class ProductBase(ABC):
     name: str
     cost: int
     article: int
     history: ProductHistory
 
-    def __str__(self) -> str:
-        return f'{self.name} ({self.article})'
+
+@dataclass
+class ProductDefaultBase(ABC):
+    width: float = 0
+    height: float = 0
+    depth: float = 0
 
 
 @dataclass
-class ClientProduct(Product):
+class Product(ProductDefaultBase, ProductBase):
+    def __str__(self) -> str:
+        return f'{self.name} ({self.article})'
+
+    def get_my_volume(self) -> float:
+        return self.width * self.height * self.depth * 1000
+
+
+@dataclass
+class ClientProductBase(ProductBase):
     niche_name: str
     category_name: str
+
+
+@dataclass
+class ClientProductDefaultBase(ProductDefaultBase):
+    pass
+
+
+@dataclass
+class ClientProduct(ClientProductDefaultBase, Product, ClientProductBase):
+    pass
 
 
 @dataclass
