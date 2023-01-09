@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import numpy as np
 from numpy import ndarray
@@ -16,7 +16,7 @@ class Niche(ABC):
     commission: float
     logistic_price: int
     returned_percent: float
-    products: list[Product]
+    products: list[Product] = field(default_factory=list)
 
     def __str__(self) -> str:
         return self.name
@@ -51,13 +51,13 @@ class Niche(ABC):
 
 @dataclass
 class MarketplaceNiche(Niche):
-    products: list[MarketplaceProduct]
+    products: list[MarketplaceProduct] = field(default_factory=list)
 
 
 @dataclass
 class Category(ABC):
     name: str
-    niches: dict[str, Niche]
+    niches: dict[str, Niche] = field(default_factory=list)
 
     def __str__(self) -> str:
         return self.name
@@ -78,7 +78,7 @@ class Warehouse(ABC):
     global_id: int
     commission: int
     address: Address
-    products: list[Product]
+    products: list[Product] = field(default_factory=list)
 
     def __str__(self) -> str:
         return self.name
@@ -106,4 +106,4 @@ class UnknownMarketplace(Marketplace):
 
 @dataclass
 class ClientMarketplace(Marketplace):
-    products: list[ClientProduct]
+    products: list[ClientProduct] = field(default_factory=list)

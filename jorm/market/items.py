@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date
 
 
@@ -13,18 +13,18 @@ class ProductHistoryUnit:
         return f'{self.unit_date}: cost - {self.cost}; leftover - {self.leftover};'
 
 
+@dataclass
 class ProductHistory:
-    def __init__(self, history: list[ProductHistoryUnit]):
-        self.__history: list[ProductHistoryUnit] = history
+    history: list[ProductHistoryUnit] = field(default_factory=list)
 
     def __str__(self) -> str:
-        return '\n'.join([str(unit) for unit in self.__history])
+        return '\n'.join([str(unit) for unit in self.history])
 
     def get_costs_pairs(self) -> dict[date, int]:
-        return {unit.unit_date: unit.cost for unit in self.__history}
+        return {unit.unit_date: unit.cost for unit in self.history}
 
     def get_leftovers_pairs(self) -> dict[date, int]:
-        return {unit.unit_date: unit.leftover for unit in self.__history}
+        return {unit.unit_date: unit.leftover for unit in self.history}
 
 
 @dataclass

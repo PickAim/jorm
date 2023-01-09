@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from market.infrastructure import ClientMarketplace
 from market.infrastructure import Warehouse
 from service import Result
@@ -7,9 +7,9 @@ from service import Result
 
 @dataclass
 class ClientInfo:
-    request_history: list[Result]
-    marketplaces: list[ClientMarketplace]
-    warehouses: list[Warehouse]
+    request_history: list[Result] = field(default_factory=list)
+    marketplaces: list[ClientMarketplace] = field(default_factory=list)
+    warehouses: list[Warehouse] = field(default_factory=list)
 
 
 @dataclass
@@ -27,7 +27,6 @@ class Admin(User):
 
 @dataclass
 class Client(User):
-    name: str
     client_info: ClientInfo
 
     def get_request_history(self) -> list[Result]:
