@@ -11,8 +11,7 @@ class MyTestCase(unittest.TestCase):
     def test_hardcode_objects_creating(self):
         product_history = ProductHistory([ProductHistoryUnit(1, 1, date.today()),
                                           ProductHistoryUnit(3, 6, date.today())])
-        client_products = [
-            ClientProduct("Coffee", 10, 12456862, product_history, "g", "g")]
+        client_products = [ClientProduct("Coffee", 10, 12456862, product_history, "g", "g")]
         warehouse = Warehouse("wb", 123, Address(), client_products)
 
         self.assertEqual("wb", warehouse.__str__())

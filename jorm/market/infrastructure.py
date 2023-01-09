@@ -14,7 +14,6 @@ from .items import MarketplaceProduct
 class Niche(ABC):
     name: str
     commission: float
-    logistic_price: int
     returned_percent: float
     products: list[Product] = field(default_factory=list)
 
@@ -27,12 +26,14 @@ class Niche(ABC):
     def get_concurrent_margin(self,
                               mid_cost: float,
                               unit_cost: int,
-                              unit_storage_cost: int) -> int:
-        return int(mid_cost - unit_cost - self.commission * mid_cost - self.logistic_price - unit_storage_cost)
+                              basic_logistic_price: int,
+                              basic_storage_cost: int) -> int:
+        return int(mid_cost - unit_cost - self.commission * mid_cost - basic_logistic_price - basic_storage_cost)
 
     def get_mean_concurrent_cost(self,
                                  unit_cost: int,
-                                 storage_price: int) -> int:
+                                 basic_logistic_price: int,
+                                 basic_storage_price: int) -> int:
         keys: list[int] = []
         if len(self.cost_data) > samples_count:
             step: int = len(self.cost_data) // samples_count
@@ -42,8 +43,8 @@ class Niche(ABC):
         else:
             keys.extend([0, len(self.cost_data) - 1])
         for i in range(1, len(keys)):
-            concurrent_margin: int = self.get_concurrent_margin(self.cost_data[keys[i - 1]:keys[i]].mean(), unit_cost,
-                                                                storage_price)
+            concurrent_margin: int = self.get_concurrent_margin(self.cost_data[keys[i - 1]:keys[i]].mean(),
+                                                                unit_cost, basic_logistic_price, basic_storage_price)
             if concurrent_margin > 0:
                 return int(self.cost_data[keys[i - 1]:keys[i]].mean())
         return int(self.cost_data[-2:-1].mean())
@@ -78,14 +79,30 @@ class Warehouse(ABC):
     global_id: int
     address: Address
     products: list[Product] = field(default_factory=list)
-    logistic_to_customer_commission: int = 0
+    basic_logistic_to_customer_commission: int = 0
+    additional_logistic_to_customer_commission: float = 0
     logistic_from_customer_commission: int = 0
     basic_storage_commission: int = 0
-    additional_storage_commission: int = 0
+    additional_storage_commission: float = 0
     mono_palette_storage_commission: int = 0
 
     def __str__(self) -> str:
         return self.name
+
+    def calculate_logistic_to_customer_price(self, liters: float) -> int:
+        return int(self.basic_logistic_to_customer_commission
+                   + self.additional_logistic_to_customer_commission * liters)
+
+    def calculate_logistic_from_customer_price(self) -> int:
+        return self.logistic_from_customer_commission
+
+    def calculate_storage_price(self, liters: float) -> int:
+        return int(self.basic_storage_commission
+                   + self.additional_storage_commission * liters)
+
+    def calculate_all_logistic(self, liters: float, returns_percent: float, units_count: int) -> int:
+        return self.calculate_logistic_to_customer_price(liters) \
+               + int(self.calculate_logistic_from_customer_price() * returns_percent * units_count)
 
 
 @dataclass
