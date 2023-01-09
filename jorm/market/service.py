@@ -7,9 +7,6 @@ from datetime import date
 class Request(ABC):
     date: date
 
-    def __init__(self, request_date: date):
-        self.__date: date = request_date
-
     def __str__(self) -> str:
         return f'[{self.date}] {self.__class__.__name__}'
 
@@ -35,11 +32,16 @@ class Result(ABC):
 
 @dataclass
 class EconomyResult(Result):
-    commission: int
-    margin: int
-    transit_price: int
-    storage_price: int
+    buy_cost: int
+    pack_cost: int
+    marketplace_commission: int
     logistic_price: int
+    storage_price: int
+    margin: int
+    recommended_price: int
+    transit_profit: int
+    roi: int
+    transit_margin_percent: float
 
 
 @dataclass

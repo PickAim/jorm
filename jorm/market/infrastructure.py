@@ -76,9 +76,13 @@ class Address(ABC):
 class Warehouse(ABC):
     name: str
     global_id: int
-    commission: int
     address: Address
     products: list[Product] = field(default_factory=list)
+    logistic_to_customer_commission: int = 0
+    logistic_from_customer_commission: int = 0
+    basic_storage_commission: int = 0
+    additional_storage_commission: int = 0
+    mono_palette_storage_commission: int = 0
 
     def __str__(self) -> str:
         return self.name

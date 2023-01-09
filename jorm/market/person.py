@@ -10,6 +10,7 @@ class ClientInfo:
     request_history: list[Result] = field(default_factory=list)
     marketplaces: list[ClientMarketplace] = field(default_factory=list)
     warehouses: list[Warehouse] = field(default_factory=list)
+    profit_tax: float = 0.0
 
 
 @dataclass
@@ -37,6 +38,9 @@ class Client(User):
 
     def get_warehouses(self) -> list[Warehouse]:
         return self.client_info.warehouses
+
+    def get_profit_tax(self) -> float:
+        return self.client_info.profit_tax
 
 
 @dataclass
