@@ -1,8 +1,9 @@
 import unittest
 from datetime import date
 
-from market.infrastructure import Warehouse, Address
-from market.items import ClientProduct, ProductHistoryUnit, ProductHistory
+from jorm.market.infrastructure import Warehouse, Address
+from jorm.market.items import ClientProduct, ProductHistoryUnit, ProductHistory
+from jorm.market.service import FrequencyResult, FrequencyRequest
 
 
 class MyTestCase(unittest.TestCase):
