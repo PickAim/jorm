@@ -29,6 +29,7 @@ class Niche(ABC):
 
     def __post_init__(self):
         self.cost_data: ndarray = np.array([product.cost for product in self.products])
+        self.cost_data.sort()
         self.max_commission: float = max([self.commissions[key] for key in self.commissions.keys()])
 
     def get_concurrent_margin(self,
