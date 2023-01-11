@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
+from enum import Enum
 
 import numpy as np
 from numpy import ndarray
@@ -10,10 +11,16 @@ from .items import ClientProduct
 from .items import MarketplaceProduct
 
 
+class HandlerType(Enum):
+    MARKETPLACE = "market"
+    PARTIAL_CLIENT = "partial client"
+    CLIENT = "client"
+
+
 @dataclass
 class Niche(ABC):
     name: str
-    commission: float
+    commissions: dict[HandlerType, float]
     returned_percent: float
     products: list[Product] = field(default_factory=list)
 
@@ -22,13 +29,14 @@ class Niche(ABC):
 
     def __post_init__(self):
         self.cost_data: ndarray = np.array([product.cost for product in self.products])
+        self.max_commission: float = max([self.commissions[key] for key in self.commissions.keys()])
 
     def get_concurrent_margin(self,
                               mid_cost: float,
                               unit_cost: int,
                               basic_logistic_price: int,
                               basic_storage_cost: int) -> int:
-        return int(mid_cost - unit_cost - self.commission * mid_cost - basic_logistic_price - basic_storage_cost)
+        return int(mid_cost - unit_cost - self.max_commission * mid_cost - basic_logistic_price - basic_storage_cost)
 
     def get_mean_concurrent_cost(self,
                                  unit_cost: int,
@@ -56,6 +64,9 @@ class Niche(ABC):
         for product in self.products:
             summary_volume += product.get_my_volume()
         return summary_volume / len(self.products)
+
+    def get_commission(self, handler_type: HandlerType):
+        return self.commissions[handler_type]
 
 
 @dataclass
@@ -85,6 +96,7 @@ class Address(ABC):
 class Warehouse(ABC):
     name: str
     global_id: int
+    handler_type: HandlerType
     address: Address
     products: list[Product] = field(default_factory=list)
     basic_logistic_to_customer_commission: int = 0
@@ -108,7 +120,7 @@ class Warehouse(ABC):
         return int(self.basic_storage_commission
                    + self.additional_storage_commission * liters)
 
-    def calculate_once_logistic_price(self, liters: float, returns_percent: float) -> int:
+    def calculate_logistic_price_for_one(self, liters: float, returns_percent: float) -> int:
         return self.calculate_logistic_to_customer_price(liters) \
                + int(self.calculate_logistic_from_customer_price() * returns_percent)
 
