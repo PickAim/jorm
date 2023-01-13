@@ -1,15 +1,16 @@
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
-from market.infrastructure import ClientMarketplace
-from market.infrastructure import Warehouse
-from service import Result
+from dataclasses import dataclass, field
+from .infrastructure import ClientMarketplace
+from .infrastructure import Warehouse
+from .service import Result
 
 
 @dataclass
 class ClientInfo:
-    request_history: list[Result]
-    marketplaces: list[ClientMarketplace]
-    warehouses: list[Warehouse]
+    request_history: list[Result] = field(default_factory=list)
+    marketplaces: list[ClientMarketplace] = field(default_factory=list)
+    warehouses: list[Warehouse] = field(default_factory=list)
+    profit_tax: float = 0.0
 
 
 @dataclass
@@ -27,7 +28,6 @@ class Admin(User):
 
 @dataclass
 class Client(User):
-    name: str
     client_info: ClientInfo
 
     def get_request_history(self) -> list[Result]:
@@ -38,6 +38,9 @@ class Client(User):
 
     def get_warehouses(self) -> list[Warehouse]:
         return self.client_info.warehouses
+
+    def get_profit_tax(self) -> float:
+        return self.client_info.profit_tax
 
 
 @dataclass
