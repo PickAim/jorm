@@ -110,6 +110,9 @@ class Warehouse(ABC):
     def __str__(self) -> str:
         return self.name
 
+    def get_niche_commission(self, niche: Niche) -> float:
+        return niche.commissions[self.handler_type]
+
     def calculate_logistic_to_customer_price(self, liters: float) -> int:
         return int(self.basic_logistic_to_customer_commission
                    + self.additional_logistic_to_customer_commission * liters)
