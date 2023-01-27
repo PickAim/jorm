@@ -14,6 +14,18 @@ class ClientInfo:
 
 
 @dataclass
+class Account:
+    login: str
+    hashed_password: str
+    user_id: int
+
+
+@dataclass
+class User(ABC):
+    name: str
+
+
+@dataclass
 class User(ABC):
     name: str
 
