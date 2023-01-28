@@ -1,31 +1,40 @@
 import json
 import base64
-from datetime import timedelta, datetime
+import random
+import string
+
+letters = string.printable
 
 ENCODED_DATA_KEY: str = 'to_encode'
-EXPIRES_TIME_KEY: str = 'expires_in'
-GRANT_TYPE_KEY: str = 'grant_type'
-
-
-TIME_FORMAT: str = "%Y-%m-%d %H:%M:%S"
 
 
 class Tokenizer:
-    @staticmethod
-    def create_access_token(to_encode: any, expires_delta: timedelta = None, grant_type: int = 1) -> bytes:
-        if expires_delta:
-            expires_in = datetime.now() + expires_delta
-        else:
-            expires_in = datetime.now() + timedelta(minutes=30)
-        expires_in = expires_in.replace(microsecond=0)
-        data: dict[str, any] = {
-            ENCODED_DATA_KEY: to_encode,
-            EXPIRES_TIME_KEY: str(expires_in),
-            GRANT_TYPE_KEY: grant_type
-        }
-        return base64.b64encode(json.dumps(data).encode())
+    def create_access_token(self) -> bytes:
+        access_token: bytes = self.create_basic_token(add_random_part=True, length=150)
+        return access_token
+
+    def create_update_token(self) -> bytes:
+        update_token: bytes = self.create_basic_token(add_random_part=True, length=330)
+        return update_token
+
+    def create_imprint_token(self) -> bytes:
+        imprint_token: bytes = self.create_basic_token(add_random_part=True, length=5)
+        return imprint_token
 
     @staticmethod
-    def is_token_expired(token: bytes) -> bool:
-        token_data: dict[str, any] = json.loads(base64.standard_b64decode(token))
-        return datetime.now() > datetime.strptime(token_data[EXPIRES_TIME_KEY], TIME_FORMAT)
+    def extract_encoded_data(token: bytes) -> any:
+        loaded = json.loads(base64.standard_b64decode(token))
+        if ENCODED_DATA_KEY in loaded:
+            return json.loads(base64.standard_b64decode(token))[ENCODED_DATA_KEY]
+        return {}
+
+    @staticmethod
+    def create_basic_token(to_encode: any = "", add_random_part: bool = False, length: int = 0):
+        data = {}
+        if to_encode != "":
+            data = {
+                ENCODED_DATA_KEY: to_encode,
+            }
+        if add_random_part:
+            data[''] = ''.join(random.choice(letters) for _ in range(length))
+        return base64.b64encode(json.dumps(data).encode())
