@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
+from enum import Enum
+
 from .infrastructure import ClientMarketplace
 from .infrastructure import Warehouse
 from .service import Result
@@ -16,18 +18,13 @@ class ClientInfo:
 @dataclass
 class Account:
     login: str
-    hashed_password: str
-    user_id: int
+    hashed_password: bytes
+    phone_number: str = ""
 
 
 @dataclass
 class User(ABC):
-    name: str
-
-
-@dataclass
-class User(ABC):
-    name: str
+    name: str = "UNNAMED"
 
     def __str__(self) -> str:
         return self.name
@@ -38,9 +35,17 @@ class Admin(User):
     pass
 
 
+class ClientPrivilege(Enum):
+    DUNGEON_MASTER = 0
+    BASIC: int = 1
+    ADVANCED: int = 2
+    PRO: int = 3
+
+
 @dataclass
 class Client(User):
-    client_info: ClientInfo
+    privilege: int = ClientPrivilege.BASIC
+    client_info: ClientInfo = ClientInfo()
 
     def get_request_history(self) -> list[Result]:
         return self.client_info.request_history

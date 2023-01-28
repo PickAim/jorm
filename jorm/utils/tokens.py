@@ -38,3 +38,11 @@ class Tokenizer:
         if add_random_part:
             data[''] = ''.join(random.choice(letters) for _ in range(length))
         return base64.b64encode(json.dumps(data).encode())
+
+    @staticmethod
+    def decode_token(token: bytes) -> str:
+        return token.decode('ascii')
+
+    @staticmethod
+    def encode_token(token_str: str) -> bytes:
+        return token_str.encode('ascii')
