@@ -18,12 +18,13 @@ class ClientInfo:
 @dataclass
 class Account:
     login: str
-    hashed_password: bytes
+    hashed_password: str
     phone_number: str = ""
 
 
 @dataclass
 class User(ABC):
+    user_id: int = -1
     name: str = "UNNAMED"
 
     def __str__(self) -> str:
