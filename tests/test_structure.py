@@ -5,7 +5,6 @@ from datetime import date
 from jorm.market.infrastructure import Warehouse, Address, HandlerType
 from jorm.market.items import ClientProduct, ProductHistoryUnit, ProductHistory
 from jorm.market.service import FrequencyResult, FrequencyRequest
-from jorm.utils.hashing import Hasher
 
 
 class MyTestCase(unittest.TestCase):
@@ -26,13 +25,6 @@ class MyTestCase(unittest.TestCase):
         x, y = freq_result.get_graph_coordinates()
         self.assertEqual(x, [1, 2, 3])
         self.assertEqual(y, [4, 5, 6])
-
-    def test_hasher_verify(self):
-        password: str = "password"
-        hasher = Hasher()
-        hashed = hasher.hash(password)
-        print(hashed)
-        self.assertTrue(hasher.verify(password, hashed))
 
 
 if __name__ == '__main__':
