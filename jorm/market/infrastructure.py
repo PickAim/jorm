@@ -28,9 +28,11 @@ class Niche(ABC):
         return self.name
 
     def __post_init__(self):
-        self.cost_data: ndarray = np.array([product.cost for product in self.products])
+        self.cost_data: ndarray = np.array(
+            [product.cost for product in self.products])
         self.cost_data.sort()
-        self.max_commission: float = max([self.commissions[key] for key in self.commissions.keys()])
+        self.max_commission: float = max(
+            [self.commissions[key] for key in self.commissions.keys()])
 
     def get_concurrent_margin(self,
                               mid_cost: float,
@@ -78,7 +80,7 @@ class MarketplaceNiche(Niche):
 @dataclass
 class Category(ABC):
     name: str
-    niches: dict[str, Niche] = field(default_factory=list)
+    niches: dict[str, Niche] = field(default_factory=dict)
 
     def __str__(self) -> str:
         return self.name
@@ -126,13 +128,13 @@ class Warehouse(ABC):
 
     def calculate_logistic_price_for_one(self, liters: float, returns_percent: float) -> int:
         return self.calculate_logistic_to_customer_price(liters) \
-               + int(self.calculate_logistic_from_customer_price() * returns_percent)
+            + int(self.calculate_logistic_from_customer_price() * returns_percent)
 
 
 @dataclass
 class Marketplace(ABC):
     name: str
-    warehouses: list[Warehouse]
+    warehouses: list[Warehouse] = field(default_factory=list)
 
     def __str__(self) -> str:
         return self.name
@@ -140,7 +142,7 @@ class Marketplace(ABC):
 
 @dataclass
 class UnknownMarketplace(Marketplace):
-    categories: dict[str, Category]
+    categories: dict[str, Category] = field(default_factory=dict)
 
     def get_category_by_name(self, category_name: str) -> Category:
         return self.categories[category_name]
