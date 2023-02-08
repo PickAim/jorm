@@ -32,11 +32,11 @@ class ProductBase(ABC):
     name: str
     cost: int
     article: int
-    history: ProductHistory
 
 
 @dataclass
 class ProductDefaultBase(ABC):
+    history: ProductHistory = ProductHistory()
     width: float = 0
     height: float = 0
     depth: float = 0
