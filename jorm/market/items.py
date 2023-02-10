@@ -36,7 +36,7 @@ class ProductBase(ABC):
 
 @dataclass
 class ProductDefaultBase(ABC):
-    history: ProductHistory = ProductHistory()
+    history: ProductHistory = field(default_factory=ProductHistory)
     width: float = 0
     height: float = 0
     depth: float = 0
