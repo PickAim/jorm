@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
+import email
 from enum import Enum
 
 from .infrastructure import ClientMarketplace
@@ -17,7 +18,8 @@ class ClientInfo:
 
 @dataclass
 class Account:
-    login: str
+    phone: str
+    email: str
     hashed_password: str
     phone_number: str = ""
 
