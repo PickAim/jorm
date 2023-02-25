@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
+import email
 from enum import Enum
 
 from .infrastructure import ClientMarketplace
@@ -17,7 +18,8 @@ class ClientInfo:
 
 @dataclass
 class Account:
-    login: str
+    phone: str
+    email: str
     hashed_password: str
     phone_number: str = ""
 
@@ -38,15 +40,15 @@ class Admin(User):
 
 class ClientPrivilege(Enum):
     DUNGEON_MASTER = 0
-    BASIC: int = 1
-    ADVANCED: int = 2
-    PRO: int = 3
+    BASIC = 1
+    ADVANCED = 2
+    PRO = 3
 
 
 @dataclass
 class Client(User):
-    privilege: int = ClientPrivilege.BASIC
-    client_info: ClientInfo = ClientInfo()
+    privilege: ClientPrivilege = ClientPrivilege.BASIC
+    client_info: ClientInfo = field(default_factory=ClientInfo)
 
     def get_request_history(self) -> list[Result]:
         return self.client_info.request_history
