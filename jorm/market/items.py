@@ -1,16 +1,19 @@
+import datetime
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from datetime import date
+
+from jorm.support.types import StorageDict
 
 
 @dataclass
 class ProductHistoryUnit:
     cost: int
-    leftover: int
     unit_date: date
+    leftover: StorageDict
 
     def __str__(self) -> str:
-        return f'{self.unit_date}: cost - {self.cost}; leftover - {self.leftover};'
+        return f'{self.unit_date}: cost - {self.cost}; leftover - {str(self.leftover)};'
 
 
 @dataclass
