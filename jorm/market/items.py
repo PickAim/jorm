@@ -3,13 +3,14 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from datetime import date
 
+from jorm.support.constants import DAYS_IN_MONTH
 from jorm.support.types import StorageDict
 
 
 @dataclass
 class ProductHistoryUnit:
     cost: int
-    unit_date: date
+    unit_date: datetime
     leftover: StorageDict
 
     def __str__(self) -> str:
@@ -28,6 +29,17 @@ class ProductHistory:
 
     def get_leftovers_pairs(self) -> dict[date, int]:
         return {unit.unit_date: unit.leftover for unit in self.history}
+
+    def get_last_month_trade_count(self, from_date: datetime.datetime) -> int:
+        result: int = 0
+        sorted_history = sorted(self.history, key=lambda unit: unit.unit_date)
+        prev_value = 0
+        for history_unit in sorted_history:
+            if abs((from_date - history_unit.unit_date).days) < DAYS_IN_MONTH:
+                if prev_value > history_unit.leftover.get_all_leftovers():
+                    result += prev_value - history_unit.leftover.get_all_leftovers()
+                prev_value = history_unit.leftover.get_all_leftovers()
+        return result
 
 
 @dataclass

@@ -1,11 +1,11 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 from dataclasses import dataclass, field
 from enum import Enum
 
 import numpy as np
 from numpy import ndarray
 
-from .constants import samples_count
+from jorm.support.constants import SAMPLES_COUNT
 from .items import Product
 from .items import ClientProduct
 from .items import MarketplaceProduct
@@ -44,7 +44,8 @@ class Niche(ABC):
     def get_mean_concurrent_cost(self,
                                  unit_cost: int,
                                  basic_logistic_price: int,
-                                 basic_storage_price: int) -> int:
+                                 basic_storage_price: int,
+                                 samples_count: int = SAMPLES_COUNT) -> int:
         keys: list[int] = []
         if len(self.cost_data) > samples_count:
             step: int = len(self.cost_data) // samples_count
