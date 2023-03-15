@@ -8,7 +8,7 @@ from jorm.market.service import FrequencyResult, FrequencyRequest
 from jorm.support.types import ProductSpecifyDict, StorageDict
 
 
-class MyTestCase(unittest.TestCase):
+class StructureTest(unittest.TestCase):
     def test_hardcode_objects_str_formatting(self):
         product_specify_dict = ProductSpecifyDict()
         product_specify_dict['s'] = 15
@@ -45,9 +45,6 @@ class MyTestCase(unittest.TestCase):
         after_trade_product_specify_dict.pop('s')
         after_trade_storage_dict = StorageDict()
         after_trade_storage_dict[123] = after_trade_product_specify_dict
-        v = datetime.datetime.utcnow()
-
-        v2 = date.today()
 
         product_history = ProductHistory([ProductHistoryUnit(1, datetime.datetime(2021, 1, 1), storage_dict),
                                           ProductHistoryUnit(3, datetime.datetime.utcnow(), storage_dict),

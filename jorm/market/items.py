@@ -36,9 +36,10 @@ class ProductHistory:
         prev_value = 0
         for history_unit in sorted_history:
             if abs((from_date - history_unit.unit_date).days) < DAYS_IN_MONTH:
-                if prev_value > history_unit.leftover.get_all_leftovers():
-                    result += prev_value - history_unit.leftover.get_all_leftovers()
-                prev_value = history_unit.leftover.get_all_leftovers()
+                leftover = history_unit.leftover.get_all_leftovers()
+                if prev_value > leftover >= 0:
+                    result += prev_value - leftover
+                prev_value = leftover
         return result
 
 
