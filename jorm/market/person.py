@@ -17,7 +17,6 @@ class ClientInfo:
 
 @dataclass
 class Account:
-    phone: str
     email: str
     hashed_password: str
     phone_number: str = ""
