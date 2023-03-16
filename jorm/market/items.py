@@ -1,7 +1,6 @@
-import datetime
+from datetime import datetime
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from datetime import date
 
 from jorm.support.constants import DAYS_IN_MONTH
 from jorm.support.types import StorageDict
@@ -24,13 +23,13 @@ class ProductHistory:
     def __str__(self) -> str:
         return '\n'.join([str(unit) for unit in self.history])
 
-    def get_costs_pairs(self) -> dict[date, int]:
+    def get_costs_pairs(self) -> dict[datetime, int]:
         return {unit.unit_date: unit.cost for unit in self.history}
 
-    def get_leftovers_pairs(self) -> dict[date, int]:
+    def get_leftovers_pairs(self) -> dict[datetime, StorageDict]:
         return {unit.unit_date: unit.leftover for unit in self.history}
 
-    def get_last_month_trade_count(self, from_date: datetime.datetime) -> int:
+    def get_last_month_trade_count(self, from_date: datetime) -> int:
         result: int = 0
         sorted_history = sorted(self.history, key=lambda unit: unit.unit_date)
         prev_value = 0
