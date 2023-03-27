@@ -14,7 +14,7 @@ class AnyJORMDict(dict):
 
 
 class ProductSpecifyDict(AnyJORMDict):
-    def __init__(self, mapping: dict | None = None, **kwargs):
+    def __init__(self, mapping: dict[str, int] | None = None, **kwargs):
         super().__init__(mapping, **kwargs)
 
     def __setitem__(self, key: str, value: int):
@@ -37,7 +37,7 @@ class ProductSpecifyDict(AnyJORMDict):
 
 
 class StorageDict(AnyJORMDict):
-    def __init__(self, mapping: dict | None = None, **kwargs):
+    def __init__(self, mapping: dict[int, ProductSpecifyDict] | None = None, **kwargs):
         super().__init__(mapping, **kwargs)
 
     def __setitem__(self, key: int, value: ProductSpecifyDict):

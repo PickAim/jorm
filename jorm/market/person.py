@@ -20,6 +20,7 @@ class Account:
     email: str
     hashed_password: str
     phone_number: str = ""
+    is_verified_email: bool = False
 
 
 @dataclass
