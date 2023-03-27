@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 
 from jorm.support.constants import DAYS_IN_MONTH
-from jorm.support.types import StorageDict
+from jorm.support.types import StorageDict, SpecifiedTopPlace
 
 
 @dataclass
@@ -46,12 +46,14 @@ class ProductHistory:
 class ProductBase(ABC):
     name: str
     cost: int
-    article: int
+    global_id: int
+    rating: float
 
 
 @dataclass
 class ProductDefaultBase(ABC):
     history: ProductHistory = field(default_factory=ProductHistory)
+    top_places: list[SpecifiedTopPlace] = field(default_factory=list)
     width: float = 0
     height: float = 0
     depth: float = 0
@@ -60,7 +62,7 @@ class ProductDefaultBase(ABC):
 @dataclass
 class Product(ProductDefaultBase, ProductBase):
     def __str__(self) -> str:
-        return f'{self.name} ({self.article})'
+        return f'{self.name} ({self.global_id})'
 
     def get_my_volume(self) -> float:
         return self.width * self.height * self.depth * 1000
