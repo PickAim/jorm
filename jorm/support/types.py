@@ -50,3 +50,15 @@ class StorageDict(AnyJORMDict):
         for value in self.values():
             result += sum(v.leftover for v in value)
         return result
+
+
+@dataclass
+class SpecifiedTopPlace:
+    search_request: str
+    place: int
+
+    def __str__(self) -> str:
+        return f'{self.search_request}: {self.place}'
+
+    def __repr__(self) -> str:
+        return f'{self.search_request}: {self.place}'
