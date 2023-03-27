@@ -1,3 +1,6 @@
+from dataclasses import dataclass
+
+
 class AnyJORMDict(dict):
     def __init__(self, mapping: dict | None = None, **kwargs):
         if mapping is not None:
@@ -13,40 +16,30 @@ class AnyJORMDict(dict):
         super().__init__(mapping)
 
 
-class ProductSpecifyDict(AnyJORMDict):
-    def __init__(self, mapping: dict[str, int] | None = None, **kwargs):
-        super().__init__(mapping, **kwargs)
+@dataclass
+class SpecifiedLeftover:
+    specify: str
+    leftover: int
 
-    def __setitem__(self, key: str, value: int):
-        if not isinstance(key, str) or not isinstance(value, int):
-            raise Exception(str(self.__class__.__name__) +
-                            ": Not completable arguments type to insert in dict")
-        super().__setitem__(key, value)
+    def __str__(self) -> str:
+        return f'{self.specify}: {self.leftover}'
 
-    def __getitem__(self, item: str) -> int:
-        if not isinstance(item, str):
-            raise Exception(str(self.__class__.__name__) +
-                            ": Not completable arguments type to get item from dict")
-        return super().__getitem__(item)
-
-    def get_all_leftovers(self) -> int:
-        result: int = 0
-        for value in self.values():
-            result += value
-        return result
+    def __repr__(self) -> str:
+        return f'{self.specify}: {self.leftover}'
 
 
 class StorageDict(AnyJORMDict):
-    def __init__(self, mapping: dict[int, ProductSpecifyDict] | None = None, **kwargs):
+    def __init__(self, mapping: dict[int, list[SpecifiedLeftover]] | None = None, **kwargs):
         super().__init__(mapping, **kwargs)
 
-    def __setitem__(self, key: int, value: ProductSpecifyDict):
-        if not isinstance(key, int) or not isinstance(value, ProductSpecifyDict):
+    def __setitem__(self, key: int, value: list[SpecifiedLeftover]):
+        if not isinstance(key, int) or not isinstance(value, list) \
+                or len(value) == 0 or not isinstance(value[0], SpecifiedLeftover):
             raise Exception(str(self.__class__.__name__) +
                             ": Not completable arguments type to insert in dict")
         super().__setitem__(key, value)
 
-    def __getitem__(self, item: int) -> ProductSpecifyDict:
+    def __getitem__(self, item: int) -> list[SpecifiedLeftover]:
         if not isinstance(item, int):
             raise Exception(str(self.__class__.__name__) +
                             ": Not completable arguments type to get item from dict")
@@ -55,5 +48,5 @@ class StorageDict(AnyJORMDict):
     def get_all_leftovers(self) -> int:
         result: int = 0
         for value in self.values():
-            result += value.get_all_leftovers()
+            result += sum(v.leftover for v in value)
         return result
