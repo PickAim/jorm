@@ -32,7 +32,7 @@ class StorageDict(dict[int, list[SpecifiedLeftover]]):
     def __init__(self, mapping: dict[int, list[SpecifiedLeftover]] | None = None):
         if mapping is None:
             mapping = {}
-        self.__init__(mapping)
+        super().__init__(mapping)
 
     def __setitem__(self, key: int, value: list[SpecifiedLeftover]):
         if not isinstance(key, int) or not isinstance(value, list) \
