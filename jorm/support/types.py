@@ -28,9 +28,11 @@ class SpecifiedLeftover:
         return f'{self.specify}: {self.leftover}'
 
 
-class StorageDict(AnyJORMDict):
-    def __init__(self, mapping: dict[int, list[SpecifiedLeftover]] | None = None, **kwargs):
-        super().__init__(mapping, **kwargs)
+class StorageDict(dict[int, list[SpecifiedLeftover]]):
+    def __init__(self, mapping: dict[int, list[SpecifiedLeftover]] | None = None):
+        if mapping is None:
+            mapping = {}
+        super().__init__(mapping)
 
     def __setitem__(self, key: int, value: list[SpecifiedLeftover]):
         if not isinstance(key, int) or not isinstance(value, list) \
