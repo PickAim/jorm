@@ -18,7 +18,11 @@ class UserInfoCollector(ABC):
         pass
 
     @abstractmethod
-    def get_account(self, login: str) -> Account:
+    def get_account_by_email(self, email: str) -> Account:
+        pass
+
+    @abstractmethod
+    def get_account_by_phone(self, phone: str) -> Account:
         pass
 
     @abstractmethod
