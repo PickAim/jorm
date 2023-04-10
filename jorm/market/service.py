@@ -1,11 +1,10 @@
-from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from datetime import datetime
 
-from jorm.support.bases.service import __UnitEconomyRequestDefaultBase, __UnitEconomyRequestBase, \
-    __FrequencyRequestDefaultBase, __FrequencyRequestBase
+from jorm.support import keywords
 
 
+@dataclass
 class RequestInfo:
     id: int = -1
     date: datetime = datetime.utcnow()
@@ -13,18 +12,19 @@ class RequestInfo:
 
 
 @dataclass
-class Request(ABC):
-    info: RequestInfo = RequestInfo()
+class UnitEconomyRequest:
+    buy: int
+    pack: int
+    niche: str
+    transit_count: int = -1
+    transit_price: int = -1
+    market_place_transit_price: int = -1
+    warehouse_name: str = keywords.DEFAULT_WAREHOUSE
 
 
 @dataclass
-class UnitEconomyRequest(Request, __UnitEconomyRequestDefaultBase, __UnitEconomyRequestBase):
-    pass
-
-
-@dataclass
-class FrequencyRequest(Request, __FrequencyRequestDefaultBase, __FrequencyRequestBase):
-    pass
+class FrequencyRequest:
+    search_str: str
 
 
 @dataclass

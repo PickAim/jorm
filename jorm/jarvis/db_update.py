@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 from jorm.market.infrastructure import Niche
 
-from jorm.market.service import UnitEconomyRequest, UnitEconomyResult, FrequencyRequest, FrequencyResult
+from jorm.market.service import UnitEconomyRequest, UnitEconomyResult, FrequencyRequest, FrequencyResult, RequestInfo
 
 from jorm.market.person import User, Account
 
@@ -33,11 +33,17 @@ class UserInfoChanger(ABC):
 
 class JORMChanger(ABC):
     @abstractmethod
-    def save_unit_economy_request(self, request: UnitEconomyRequest, result: UnitEconomyResult, user: User) -> int:
+    def save_unit_economy_request(self, request: UnitEconomyRequest,
+                                  result: UnitEconomyResult,
+                                  request_info: RequestInfo,
+                                  user: User) -> int:
         pass
 
     @abstractmethod
-    def save_frequency_request(self, request: FrequencyRequest, result: FrequencyResult, user: User) -> int:
+    def save_frequency_request(self, request: FrequencyRequest,
+                               result: FrequencyResult,
+                               request_info: RequestInfo,
+                               user: User) -> int:
         pass
 
     @abstractmethod
