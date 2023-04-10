@@ -53,8 +53,10 @@ class Niche(ABC):
             for i in range(samples_count - 1):
                 keys.append(i * step)
             keys.append(len(self.cost_data) - 1)
-        else:
+        elif len(self.cost_data) > 0:
             keys.extend([0, len(self.cost_data) - 1])
+        else:
+            return 0
         for i in range(1, len(keys)):
             concurrent_margin: int = self.get_concurrent_margin(self.cost_data[keys[i - 1]:keys[i]].mean(),
                                                                 unit_cost, basic_logistic_price, basic_storage_price)
