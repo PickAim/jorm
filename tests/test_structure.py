@@ -3,7 +3,7 @@ import unittest
 
 from jorm.market.infrastructure import Warehouse, Address, HandlerType
 from jorm.market.items import ClientProduct, ProductHistoryUnit, ProductHistory
-from jorm.market.service import FrequencyResult, FrequencyRequest
+from jorm.market.service import FrequencyResult
 from jorm.support.types import StorageDict, SpecifiedLeftover
 
 
@@ -83,7 +83,7 @@ class StructureTest(unittest.TestCase):
 
     def test_frequency_result(self):
         freq: dict[int, int] = {1: 4, 2: 5, 3: 6}
-        freq_result = FrequencyResult(FrequencyRequest(datetime.datetime.now(), ""), freq)
+        freq_result = FrequencyResult(freq)
         x, y = freq_result.get_graph_coordinates()
         self.assertEqual(x, [1, 2, 3])
         self.assertEqual(y, [4, 5, 6])
