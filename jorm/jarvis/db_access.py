@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from jorm.market.service import UnitEconomyRequest, UnitEconomyResult, RequestInfo
+from jorm.market.service import UnitEconomyRequest, UnitEconomyResult, RequestInfo, FrequencyRequest, FrequencyResult
 
 from jorm.market.items import Product
 
@@ -51,4 +51,9 @@ class JORMCollector(ABC):
     @abstractmethod
     def get_all_unit_economy_results(self, user: User) \
             -> list[tuple[UnitEconomyRequest, UnitEconomyResult, RequestInfo]]:
+        pass
+
+    @abstractmethod
+    def get_all_frequency_results(self, user: User) \
+            -> list[tuple[FrequencyRequest, FrequencyResult, RequestInfo]]:
         pass
