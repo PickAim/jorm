@@ -27,7 +27,7 @@ class UserInfoChanger(ABC):
         pass
 
     @abstractmethod
-    def delete_tokens_for_user(self, user: User, imprint_token: str):
+    def delete_tokens_for_user(self, user: User, imprint_token: str) -> None:
         pass
 
 
@@ -44,6 +44,14 @@ class JORMChanger(ABC):
                                result: FrequencyResult,
                                request_info: RequestInfo,
                                user: User) -> int:
+        pass
+
+    @abstractmethod
+    def delete_unit_economy_request(self, request_id: int, user: User) -> None:
+        pass
+
+    @abstractmethod
+    def delete_frequency_request(self, request_id: int, user: User) -> None:
         pass
 
     @abstractmethod
