@@ -12,7 +12,9 @@ class StructureTest(unittest.TestCase):
         storage_dict = StorageDict()
         storage_dict[123] = [SpecifiedLeftover('s', 15), SpecifiedLeftover('l', 25), SpecifiedLeftover('p', 35)]
 
-        product_history = ProductHistory([ProductHistoryUnit(1, datetime.datetime.utcnow(), storage_dict),
+        saved_time = datetime.datetime.utcnow()
+
+        product_history = ProductHistory([ProductHistoryUnit(1, saved_time, storage_dict),
                                           ProductHistoryUnit(3, datetime.datetime(2021, 1, 1), storage_dict)])
 
         client_products = [ClientProduct("Coffee", 10, 12456862, 4.3, "g", "g", history=product_history)]
@@ -20,7 +22,7 @@ class StructureTest(unittest.TestCase):
 
         self.assertEqual("wb", warehouse.__str__())
         self.assertEqual("Coffee (12456862)", warehouse.products[0].__str__())
-        self.assertEqual(f"{datetime.datetime.utcnow()}: cost - 1; leftover - "
+        self.assertEqual(f"{saved_time}: cost - 1; leftover - "
                          + "{123: [s: 15, l: 25, p: 35]};\n"
                          + f"{datetime.datetime(2021, 1, 1)}: cost - 3; leftover - "
                          + "{123: [s: 15, l: 25, p: 35]};",
