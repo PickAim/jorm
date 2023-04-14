@@ -1,8 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
 
-from jorm.support import keywords
-
 
 @dataclass
 class RequestInfo:
@@ -19,7 +17,7 @@ class UnitEconomyRequest:
     transit_count: int = -1
     transit_price: int = -1
     market_place_transit_price: int = -1
-    warehouse_name: str = keywords.DEFAULT_WAREHOUSE
+    warehouse_name: str = None
 
 
 @dataclass
