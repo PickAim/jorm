@@ -35,15 +35,14 @@ class StorageDict(dict[int, list[SpecifiedLeftover]]):
         super().__init__(mapping)
 
     def __setitem__(self, key: int, value: list[SpecifiedLeftover]):
-        if not isinstance(key, int) or not isinstance(value, list) \
-                or len(value) == 0 or not isinstance(value[0], SpecifiedLeftover):
-            raise Exception(str(self.__class__.__name__) +
+        if not isinstance(key, int) or not isinstance(value, list):
+            raise Exception(self.__class__.__name__ +
                             ": Not completable arguments type to insert in dict")
         super().__setitem__(key, value)
 
     def __getitem__(self, item: int) -> list[SpecifiedLeftover]:
         if not isinstance(item, int):
-            raise Exception(str(self.__class__.__name__) +
+            raise Exception(self.__class__.__name__ +
                             ": Not completable arguments type to get item from dict")
         return super().__getitem__(item)
 
