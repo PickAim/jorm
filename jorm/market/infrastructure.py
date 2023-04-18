@@ -23,6 +23,7 @@ class Niche(ABC):
     commissions: dict[HandlerType, float]
     returned_percent: float
     products: list[Product] = field(default_factory=list)
+    request_rate: int = 0
 
     def __str__(self) -> str:
         return self.name
