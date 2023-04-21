@@ -31,6 +31,9 @@ class ProductHistory:
     def __getitem__(self, idx: int):
         return self.__history[idx]
 
+    def get_history(self) -> list[ProductHistoryUnit]:
+        return self.__history
+
     def add(self, history_unit: ProductHistoryUnit):
         for i in range(len(self.__history) - 1, -1, -1):
             if self.__history[i].unit_date > history_unit.unit_date:
