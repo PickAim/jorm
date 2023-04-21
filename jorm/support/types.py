@@ -17,6 +17,16 @@ class AnyJORMDict(dict):
 
 
 @dataclass
+class DownturnSumCount:
+    sum: int = 0
+    count: int = 0
+
+
+class SpecMap(dict[str, DownturnSumCount]):
+    pass
+
+
+@dataclass
 class SpecifiedLeftover:
     specify: str
     leftover: int
@@ -26,6 +36,9 @@ class SpecifiedLeftover:
 
     def __repr__(self) -> str:
         return f'{self.specify}: {self.leftover}'
+
+    def __eq__(self, other):
+        return self.specify == other.specify
 
 
 class StorageDict(dict[int, list[SpecifiedLeftover]]):
