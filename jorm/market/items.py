@@ -75,9 +75,9 @@ class ProductHistory:
             start_idx += 1
         return start_idx, end_idx
 
-    def get_all_leftovers(self) -> dict[int, SpecifiedLeftover]:
+    def get_all_leftovers(self) -> dict[int, list[SpecifiedLeftover]]:
         last_history_unit: ProductHistoryUnit = self.__history[-1]
-        warehouse_id_to_leftover: dict[int, SpecifiedLeftover] = {
+        warehouse_id_to_leftover: dict[int, list[SpecifiedLeftover]] = {
             warehouse_id: last_history_unit.leftover[warehouse_id]
             for warehouse_id in last_history_unit.leftover
         }
@@ -90,9 +90,12 @@ class ProductHistory:
     def get_leftovers_downturn(self, from_date: datetime = datetime.utcnow()) -> dict[int, DownturnMap]:
         start_idx, end_idx = self.__get_date_indexes(from_date)
         if start_idx >= end_idx:
-            all_leftovers = self.get_all_leftovers()
+            all_leftovers: dict[int, list[SpecifiedLeftover]] = self.get_all_leftovers()
             return {
-                warehouse_id: DownturnMap({all_leftovers[warehouse_id].specify: DownturnSumCount})
+                warehouse_id: DownturnMap({
+                    specify_obj.specify: DownturnSumCount()
+                    for specify_obj in all_leftovers[warehouse_id]
+                })
                 for warehouse_id in all_leftovers
             }
 
@@ -109,7 +112,7 @@ class ProductHistory:
                     next_leftover = next_specifies[warehouse_id][specify] \
                         if warehouse_id in next_specifies and specify in next_specifies[warehouse_id] \
                         else 0
-                    if next_leftover - cur_specifies[warehouse_id][specify] < 0:
+                    if next_leftover - cur_specifies[warehouse_id][specify] <= 0:
                         if specify not in downturn_counts[warehouse_id]:
                             downturn_counts[warehouse_id][specify] = DownturnSumCount()
                         cur_downturn = downturn_counts[warehouse_id][specify]

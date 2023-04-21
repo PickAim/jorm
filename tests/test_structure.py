@@ -77,6 +77,8 @@ class StructureTest(unittest.TestCase):
         self.assertEqual(-15, down[123]['s'].sum)
         self.assertEqual(-15, down[321]['s'].sum)
         self.assertEqual(-5, down[123]['l'].sum)
+        self.assertEqual(0, down[123]['p'].sum)
+        self.assertEqual(0, down[321]['l'].sum)
         self.assertEqual(-5, down[321]['p'].sum)
 
     def test_frequency_result(self):
