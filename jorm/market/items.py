@@ -4,9 +4,8 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 
 from jorm.support.constants import DAYS_IN_MONTH
-from jorm.support.types import StorageDict, SpecifiedTopPlace, SpecifiedLeftover, SpecMap, \
+from jorm.support.types import StorageDict, SpecifiedTopPlace, SpecifiedLeftover, DownturnMap, \
     DownturnSumCount
-from jorm.support.utils import intersection
 
 
 @dataclass
@@ -81,37 +80,38 @@ class ProductHistory:
         }
         return warehouse_id_to_leftover
 
-    def get_leftovers_downturn(self, from_date: datetime = datetime.utcnow()) -> dict[int, SpecMap]:
+    def get_all_mapped_leftovers(self) -> dict[int, dict[str, int]]:
+        last_history_unit: ProductHistoryUnit = self.__history[-1]
+        return last_history_unit.leftover.get_mapped_leftovers()
+
+    def get_leftovers_downturn(self, from_date: datetime = datetime.utcnow()) -> dict[int, DownturnMap]:
         start_idx, end_idx = self.__get_date_indexes(from_date)
         if start_idx >= end_idx:
             all_leftovers = self.get_all_leftovers()
             return {
-                warehouse_id: SpecMap({all_leftovers[warehouse_id].specify: DownturnSumCount})
+                warehouse_id: DownturnMap({all_leftovers[warehouse_id].specify: DownturnSumCount})
                 for warehouse_id in all_leftovers
             }
 
-        downturn_counts: dict[int, SpecMap] = {}
+        downturn_counts: dict[int, DownturnMap] = {}
         for i in range(start_idx, min(end_idx, len(self.__history) - 1)):
             cur_unit = self.__history[i].leftover
             next_unit = self.__history[i + 1].leftover
-            intersection_of_warehouse_id = intersection(cur_unit.keys(), next_unit.keys())
-            for warehouse_id in intersection_of_warehouse_id:
+            cur_specifies: dict[int, dict[str, int]] = cur_unit.get_mapped_leftovers()
+            next_specifies: dict[int, dict[str, int]] = next_unit.get_mapped_leftovers()
+            for warehouse_id in cur_specifies:
                 if warehouse_id not in downturn_counts:
-                    downturn_counts[warehouse_id] = SpecMap()
-                cur_specifies: dict[str, SpecifiedLeftover] = {
-                    specify.specify: specify for specify in cur_unit[warehouse_id]
-                }
-                next_specifies: dict[str, SpecifiedLeftover] = {
-                    specify.specify: specify for specify in next_unit[warehouse_id]
-                }
-                for specify in cur_specifies.keys():
-                    next_leftover = next_specifies[specify].leftover if specify in next_specifies else 0
-                    if next_leftover - cur_specifies[specify].leftover < 0:
+                    downturn_counts[warehouse_id] = DownturnMap()
+                for specify in cur_specifies[warehouse_id]:
+                    next_leftover = next_specifies[warehouse_id][specify] \
+                        if warehouse_id in next_specifies and specify in next_specifies[warehouse_id] \
+                        else 0
+                    if next_leftover - cur_specifies[warehouse_id][specify] < 0:
                         if specify not in downturn_counts[warehouse_id]:
                             downturn_counts[warehouse_id][specify] = DownturnSumCount()
                         cur_downturn = downturn_counts[warehouse_id][specify]
                         cur_downturn.count += 1
-                        cur_downturn.sum += next_leftover - cur_specifies[specify].leftover
+                        cur_downturn.sum += next_leftover - cur_specifies[warehouse_id][specify]
         return downturn_counts
 
 

@@ -22,7 +22,7 @@ class DownturnSumCount:
     count: int = 0
 
 
-class SpecMap(dict[str, DownturnSumCount]):
+class DownturnMap(dict[str, DownturnSumCount]):
     pass
 
 
@@ -64,6 +64,15 @@ class StorageDict(dict[int, list[SpecifiedLeftover]]):
         for value in self.values():
             result += sum(v.leftover for v in value)
         return result
+
+    def get_mapped_leftovers(self) -> dict[int, dict[str, int]]:
+        return {
+            key: {
+                specified_leftover.specify: specified_leftover.leftover
+                for specified_leftover in self.get(key)
+            }
+            for key in self.keys()
+        }
 
 
 @dataclass
