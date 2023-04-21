@@ -63,12 +63,13 @@ class ProductHistory:
 
     def __get_date_indexes(self, from_date: datetime) -> tuple[int, int]:
         end_idx = len(self.__history) - 1
-        while self.__history[end_idx].unit_date > from_date:
+        while self.__history[end_idx].unit_date > from_date and end_idx > 1:  # two element ass minimum
             end_idx -= 1
         end_date = from_date - date_root.timedelta(DAYS_IN_MONTH)
 
         start_idx = 0
-        while self.__history[start_idx].unit_date < end_date:
+        while self.__history[start_idx].unit_date < end_date \
+                and start_idx < len(self.__history) - 2:  # two element ass minimum
             start_idx += 1
         return start_idx, end_idx
 
