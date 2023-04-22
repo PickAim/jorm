@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 
+from jorm.market.items import Product
+
 from jorm.server.token.types import TokenType
 
 from jorm.market.infrastructure import Niche, Warehouse
@@ -38,4 +40,8 @@ class JORMCollector(ABC):
 
     @abstractmethod
     def get_all_warehouses(self) -> list[Warehouse] | None:
+        pass
+
+    @abstractmethod
+    def get_products_by_user(self, user: User) -> list[Product]:
         pass
