@@ -2,6 +2,7 @@ import datetime as date_root
 from datetime import datetime
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
+from typing import Iterable
 
 from jorm.support.constants import DAYS_IN_MONTH
 from jorm.support.types import StorageDict, SpecifiedTopPlace, SpecifiedLeftover, DownturnMap, \
@@ -18,21 +19,22 @@ class ProductHistoryUnit:
         return f'{self.unit_date}: cost - {self.cost}; leftover - {str(self.leftover)};'
 
 
-@dataclass
 class ProductHistory:
-    __history: list[ProductHistoryUnit] = field(default_factory=list)
+    def __init__(self, history: Iterable[ProductHistoryUnit]):
+        self.__history = list(history)
 
     def __str__(self) -> str:
         return '\n'.join([str(unit) for unit in self.__history])
 
     def __post_init__(self):
-        self.__history = sorted(self.__history, key=lambda unit: unit.unit_date)
+        self.__history = sorted(
+            self.__history, key=lambda unit: unit.unit_date)
 
     def __getitem__(self, idx: int):
         return self.__history[idx]
 
     def get_history(self) -> list[ProductHistoryUnit]:
-        return self.__history
+        return list(self.__history)
 
     def add(self, history_unit: ProductHistoryUnit):
         for i in range(len(self.__history) - 1, -1, -1):
@@ -65,7 +67,8 @@ class ProductHistory:
 
     def __get_date_indexes(self, from_date: datetime) -> tuple[int, int]:
         end_idx = len(self.__history) - 1
-        while self.__history[end_idx].unit_date > from_date and end_idx > 1:  # two element ass minimum
+        # two element ass minimum
+        while self.__history[end_idx].unit_date > from_date and end_idx > 1:
             end_idx -= 1
         end_date = from_date - date_root.timedelta(DAYS_IN_MONTH)
 
@@ -90,7 +93,8 @@ class ProductHistory:
     def get_leftovers_downturn(self, from_date: datetime = datetime.utcnow()) -> dict[int, DownturnMap]:
         start_idx, end_idx = self.__get_date_indexes(from_date)
         if start_idx >= end_idx:
-            all_leftovers: dict[int, list[SpecifiedLeftover]] = self.get_all_leftovers()
+            all_leftovers: dict[int, list[SpecifiedLeftover]
+                                ] = self.get_all_leftovers()
             return {
                 warehouse_id: DownturnMap({
                     specify_obj.specify: DownturnSumCount()
@@ -103,8 +107,10 @@ class ProductHistory:
         for i in range(start_idx, min(end_idx, len(self.__history) - 1)):
             cur_unit = self.__history[i].leftover
             next_unit = self.__history[i + 1].leftover
-            cur_specifies: dict[int, dict[str, int]] = cur_unit.get_mapped_leftovers()
-            next_specifies: dict[int, dict[str, int]] = next_unit.get_mapped_leftovers()
+            cur_specifies: dict[int, dict[str, int]
+                                ] = cur_unit.get_mapped_leftovers()
+            next_specifies: dict[int, dict[str, int]
+                                 ] = next_unit.get_mapped_leftovers()
             for warehouse_id in cur_specifies:
                 if warehouse_id not in downturn_counts:
                     downturn_counts[warehouse_id] = DownturnMap()
@@ -114,10 +120,12 @@ class ProductHistory:
                         else 0
                     if next_leftover - cur_specifies[warehouse_id][specify] <= 0:
                         if specify not in downturn_counts[warehouse_id]:
-                            downturn_counts[warehouse_id][specify] = DownturnSumCount()
+                            downturn_counts[warehouse_id][specify] = DownturnSumCount(
+                            )
                         cur_downturn = downturn_counts[warehouse_id][specify]
                         cur_downturn.count += 1
-                        cur_downturn.sum += next_leftover - cur_specifies[warehouse_id][specify]
+                        cur_downturn.sum += next_leftover - \
+                            cur_specifies[warehouse_id][specify]
         return downturn_counts
 
 
