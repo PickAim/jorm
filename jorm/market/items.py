@@ -20,7 +20,9 @@ class ProductHistoryUnit:
 
 
 class ProductHistory:
-    def __init__(self, history: Iterable[ProductHistoryUnit]):
+    def __init__(self, history: Iterable[ProductHistoryUnit] | None = None):
+        if history is None:
+            history = []
         self.__history = list(history)
 
     def __str__(self) -> str:
