@@ -31,7 +31,7 @@ class UserInfoCollector(ABC):
 class JORMCollector(ABC):
 
     @abstractmethod
-    def get_niche(self, niche_name: str) -> Niche | None:
+    def get_niche(self, niche_name: str, marketplace_id: int) -> Niche | None:
         pass
 
     @abstractmethod
