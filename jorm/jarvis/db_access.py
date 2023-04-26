@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 
+from jorm.market.service import UnitEconomyRequest, UnitEconomyResult, RequestInfo, FrequencyRequest, FrequencyResult
+
 from jorm.market.items import Product
 
 from jorm.server.token.types import TokenType
@@ -44,4 +46,14 @@ class JORMCollector(ABC):
 
     @abstractmethod
     def get_products_by_user(self, user: User) -> list[Product]:
+        pass
+
+    @abstractmethod
+    def get_all_unit_economy_results(self, user: User) \
+            -> list[tuple[UnitEconomyRequest, UnitEconomyResult, RequestInfo]]:
+        pass
+
+    @abstractmethod
+    def get_all_frequency_results(self, user: User) \
+            -> list[tuple[FrequencyRequest, FrequencyResult, RequestInfo]]:
         pass

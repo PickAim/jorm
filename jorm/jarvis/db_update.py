@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 from jorm.market.infrastructure import Niche
 
-from jorm.market.service import Request
+from jorm.market.service import UnitEconomyRequest, UnitEconomyResult, FrequencyRequest, FrequencyResult, RequestInfo
 
 from jorm.market.person import User, Account
 
@@ -27,13 +27,31 @@ class UserInfoChanger(ABC):
         pass
 
     @abstractmethod
-    def delete_tokens_for_user(self, user: User, imprint_token: str):
+    def delete_tokens_for_user(self, user: User, imprint_token: str) -> None:
         pass
 
 
 class JORMChanger(ABC):
     @abstractmethod
-    def save_request(self, request: Request, user: User) -> None:
+    def save_unit_economy_request(self, request: UnitEconomyRequest,
+                                  result: UnitEconomyResult,
+                                  request_info: RequestInfo,
+                                  user: User) -> int:
+        pass
+
+    @abstractmethod
+    def save_frequency_request(self, request: FrequencyRequest,
+                               result: FrequencyResult,
+                               request_info: RequestInfo,
+                               user: User) -> int:
+        pass
+
+    @abstractmethod
+    def delete_unit_economy_request(self, request_id: int, user: User) -> None:
+        pass
+
+    @abstractmethod
+    def delete_frequency_request(self, request_id: int, user: User) -> None:
         pass
 
     @abstractmethod

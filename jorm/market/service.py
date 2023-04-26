@@ -1,38 +1,33 @@
-from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from datetime import date
+from datetime import datetime
 
 
 @dataclass
-class Request(ABC):
-    date: date
-
-    def __str__(self) -> str:
-        return f'[{self.date}] {self.__class__.__name__}'
-
-
-@dataclass
-class EconomyRequest(Request):
-    niche_name: str
-    prime_cost: int
-    pack_cost: int
-    transit_cost: int
-    transit_count: int
+class RequestInfo:
+    id: int = -1
+    date: datetime = datetime.utcnow()
+    name: str = ""
 
 
 @dataclass
-class FrequencyRequest(Request):
+class UnitEconomyRequest:
+    buy: int
+    pack: int
+    niche: str
+    transit_count: int = -1
+    transit_price: int = -1
+    market_place_transit_price: int = -1
+    warehouse_name: str = None
+
+
+@dataclass
+class FrequencyRequest:
     search_str: str
 
 
 @dataclass
-class Result(ABC):
-    request: Request
-
-
-@dataclass
-class EconomyResult(Result):
-    buy_cost: int
+class UnitEconomyResult:
+    product_cost: int
     pack_cost: int
     marketplace_commission: int
     logistic_price: int
@@ -40,12 +35,12 @@ class EconomyResult(Result):
     margin: int
     recommended_price: int
     transit_profit: int
-    roi: int
-    transit_margin_percent: float
+    roi: float
+    transit_margin: float
 
 
 @dataclass
-class FrequencyResult(Result):
+class FrequencyResult:
     frequencies: dict[int, int]
 
     def get_graph_coordinates(self) -> tuple[list[int], list[int]]:

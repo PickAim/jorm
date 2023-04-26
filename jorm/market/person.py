@@ -4,12 +4,10 @@ from enum import Enum
 
 from .infrastructure import ClientMarketplace
 from .infrastructure import Warehouse
-from .service import Result
 
 
 @dataclass
 class ClientInfo:
-    request_history: list[Result] = field(default_factory=list)
     marketplaces: list[ClientMarketplace] = field(default_factory=list)
     warehouses: list[Warehouse] = field(default_factory=list)
     profit_tax: float = 0.0
@@ -48,9 +46,6 @@ class ClientPrivilege(Enum):
 class Client(User):
     privilege: ClientPrivilege = ClientPrivilege.BASIC
     client_info: ClientInfo = field(default_factory=ClientInfo)
-
-    def get_request_history(self) -> list[Result]:
-        return self.client_info.request_history
 
     def get_marketplaces(self) -> list[ClientMarketplace]:
         return self.client_info.marketplaces
