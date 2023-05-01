@@ -40,4 +40,4 @@ jobs:
     steps:
     - name: Test with unittest
       run: |
-        python -m unittest discover -s tests
+        python -m unittest discover -s jorm/tests "*test_*"
