@@ -40,4 +40,4 @@ jobs:
     steps:
     - name: Test with unittest
       run: |
-        python -m unittest discover -s tests "*test*.py"
+        python -m unittest discover -s tests
