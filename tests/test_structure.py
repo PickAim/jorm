@@ -17,7 +17,9 @@ class StructureTest(unittest.TestCase):
         product_history = ProductHistory([ProductHistoryUnit(1, datetime.datetime(2021, 1, 1), storage_dict),
                                           ProductHistoryUnit(3, saved_time, storage_dict)])
 
-        client_products = [ClientProduct("Coffee", 10, 12456862, 4.3, "g", "g", history=product_history)]
+        client_products = [
+            ClientProduct("Coffee", 10, 12456862, 4.3, "brand", "seller", "g", "g", history=product_history)
+        ]
         warehouse = Warehouse("wb", 123, HandlerType.MARKETPLACE, Address(), client_products)
 
         self.assertEqual("wb", warehouse.__str__())

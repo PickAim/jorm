@@ -137,6 +137,8 @@ class ProductBase(ABC):
     cost: int
     global_id: int
     rating: float
+    brand: str
+    seller: str
 
 
 @dataclass
