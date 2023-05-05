@@ -9,17 +9,17 @@ from jorm.market.person import User, Account
 
 class UserInfoChanger(ABC):
     @abstractmethod
-    def update_session_tokens(self, old_update_token: str, new_access_token: str, new_update_token: str) -> None:
+    def update_session_tokens(self, user_id: int, old_update_token: str, new_access_token: str, new_update_token: str) -> None:
         # add exceptions
         pass
 
     @abstractmethod
     def update_session_tokens_by_imprint(self, access_token: str,
-                                         update_token: str, imprint_token: str, user: User) -> None:
+                                         update_token: str, imprint_token: str, user_id: int) -> None:
         pass
 
     @abstractmethod
-    def save_all_tokens(self, access_token: str, update_token: str, imprint_token: str, user: User) -> None:
+    def save_all_tokens(self, access_token: str, update_token: str, imprint_token: str, user_id: int) -> None:
         pass
 
     @abstractmethod
