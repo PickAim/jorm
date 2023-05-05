@@ -19,7 +19,7 @@ class UserInfoChanger(ABC):
         pass
 
     @abstractmethod
-    def save_all_tokens(self, access_token: str, update_token: str, imprint_token: str, user: User) -> None:
+    def save_all_tokens(self, access_token: str, update_token: str, imprint_token: str, user_id: int) -> None:
         pass
 
     @abstractmethod
