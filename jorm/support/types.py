@@ -76,12 +76,8 @@ class StorageDict(dict[int, list[SpecifiedLeftover]]):
 
 
 @dataclass
-class SpecifiedTopPlace:
-    search_request: str
-    place: int
-
-    def __str__(self) -> str:
-        return f'{self.search_request}: {self.place}'
-
-    def __repr__(self) -> str:
-        return f'{self.search_request}: {self.place}'
+class SpecifiedTopPlaceDict(dict[str, int]):
+    def __init__(self, mapping: dict[str, int] | None = None):
+        if mapping is None:
+            mapping = {}
+        super().__init__(mapping)
