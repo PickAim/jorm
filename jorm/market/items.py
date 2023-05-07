@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 from typing import Iterable
 
 from jorm.support.constants import DAYS_IN_MONTH
-from jorm.support.types import StorageDict, SpecifiedTopPlace, SpecifiedLeftover, DownturnMap, \
+from jorm.support.types import StorageDict, SpecifiedTopPlaceDict, SpecifiedLeftover, DownturnMap, \
     DownturnSumCount
 
 
@@ -144,7 +144,7 @@ class ProductBase(ABC):
 @dataclass
 class ProductDefaultBase(ABC):
     history: ProductHistory = field(default_factory=ProductHistory)
-    top_places: list[SpecifiedTopPlace] = field(default_factory=list)
+    top_places: SpecifiedTopPlaceDict = field(default_factory=dict)
     width: float = 0
     height: float = 0
     depth: float = 0
