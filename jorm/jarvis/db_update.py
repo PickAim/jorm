@@ -9,7 +9,8 @@ from jorm.market.person import User, Account
 
 class UserInfoChanger(ABC):
     @abstractmethod
-    def update_session_tokens(self, user_id: int, old_update_token: str, new_access_token: str, new_update_token: str) -> None:
+    def update_session_tokens(self, user_id: int, old_update_token: str,
+                              new_access_token: str, new_update_token: str) -> None:
         # add exceptions
         pass
 
@@ -27,7 +28,7 @@ class UserInfoChanger(ABC):
         pass
 
     @abstractmethod
-    def delete_tokens_for_user(self, user: User, imprint_token: str) -> None:
+    def delete_tokens_for_user(self, user_id: int, imprint_token: str) -> None:
         pass
 
 
@@ -36,22 +37,22 @@ class JORMChanger(ABC):
     def save_unit_economy_request(self, request: UnitEconomyRequest,
                                   result: UnitEconomyResult,
                                   request_info: RequestInfo,
-                                  user: User) -> int:
+                                  user_id: int) -> int:
         pass
 
     @abstractmethod
     def save_frequency_request(self, request: FrequencyRequest,
                                result: FrequencyResult,
                                request_info: RequestInfo,
-                               user: User) -> int:
+                               user_id: int) -> int:
         pass
 
     @abstractmethod
-    def delete_unit_economy_request(self, request_id: int, user: User) -> None:
+    def delete_unit_economy_request(self, request_id: int, user_id: int) -> None:
         pass
 
     @abstractmethod
-    def delete_frequency_request(self, request_id: int, user: User) -> None:
+    def delete_frequency_request(self, request_id: int, user_id: int) -> None:
         pass
 
     @abstractmethod
