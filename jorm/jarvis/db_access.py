@@ -45,15 +45,15 @@ class JORMCollector(ABC):
         pass
 
     @abstractmethod
-    def get_products_by_user(self, user: User) -> list[Product]:
+    def get_products_by_user(self, user_id: int) -> list[Product]:
         pass
 
     @abstractmethod
-    def get_all_unit_economy_results(self, user: User) \
+    def get_all_unit_economy_results(self, user_id: int) \
             -> list[tuple[UnitEconomyRequest, UnitEconomyResult, RequestInfo]]:
         pass
 
     @abstractmethod
-    def get_all_frequency_results(self, user: User) \
+    def get_all_frequency_results(self, user_id: int) \
             -> list[tuple[FrequencyRequest, FrequencyResult, RequestInfo]]:
         pass
