@@ -7,8 +7,6 @@ from numpy import ndarray
 
 from jorm.support.constants import SAMPLES_COUNT
 from .items import Product
-from .items import ClientProduct
-from .items import MarketplaceProduct
 
 
 class HandlerType(Enum):
@@ -74,11 +72,6 @@ class Niche(ABC):
 
     def get_commission(self, handler_type: HandlerType):
         return self.commissions[handler_type]
-
-
-@dataclass
-class MarketplaceNiche(Niche):
-    products: list[MarketplaceProduct] = field(default_factory=list)
 
 
 @dataclass
@@ -153,8 +146,3 @@ class UnknownMarketplace(Marketplace):
 
     def get_niche_by_name(self, category_name: str, niche_name: str) -> Niche:
         return self.categories[category_name].get_niche_by_name(niche_name)
-
-
-@dataclass
-class ClientMarketplace(Marketplace):
-    products: list[ClientProduct] = field(default_factory=list)

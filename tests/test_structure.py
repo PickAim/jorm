@@ -2,7 +2,7 @@ import datetime
 import unittest
 
 from jorm.market.infrastructure import Warehouse, Address, HandlerType
-from jorm.market.items import ClientProduct, ProductHistoryUnit, ProductHistory
+from jorm.market.items import ProductHistoryUnit, ProductHistory, Product
 from jorm.market.service import FrequencyResult
 from jorm.support.types import StorageDict, SpecifiedLeftover
 
@@ -18,7 +18,7 @@ class StructureTest(unittest.TestCase):
                                           ProductHistoryUnit(3, saved_time, storage_dict)])
 
         client_products = [
-            ClientProduct("Coffee", 10, 12456862, 4.3, "brand", "seller", "g", "g", history=product_history)
+            Product("Coffee", 10, 12456862, 4.3, "brand", "seller", "g", "g", history=product_history)
         ]
         warehouse = Warehouse("wb", 123, HandlerType.MARKETPLACE, Address(), client_products)
 

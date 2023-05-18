@@ -2,13 +2,11 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from enum import Enum
 
-from .infrastructure import ClientMarketplace
 from .infrastructure import Warehouse
 
 
 @dataclass
 class ClientInfo:
-    marketplaces: list[ClientMarketplace] = field(default_factory=list)
     warehouses: list[Warehouse] = field(default_factory=list)
     profit_tax: float = 0.0
 
@@ -21,21 +19,7 @@ class Account:
     is_verified_email: bool = False
 
 
-@dataclass
-class User(ABC):
-    user_id: int = -1
-    name: str = "UNNAMED"
-
-    def __str__(self) -> str:
-        return self.name
-
-
-@dataclass
-class Admin(User):
-    pass
-
-
-class ClientPrivilege(Enum):
+class UserPrivilege(Enum):
     DUNGEON_MASTER = 0
     BASIC = 1
     ADVANCED = 2
@@ -43,12 +27,11 @@ class ClientPrivilege(Enum):
 
 
 @dataclass
-class Client(User):
-    privilege: ClientPrivilege = ClientPrivilege.BASIC
+class User(ABC):
+    user_id: int = -1
+    name: str = "UNNAMED"
+    privilege: UserPrivilege = UserPrivilege.BASIC
     client_info: ClientInfo = field(default_factory=ClientInfo)
-
-    def get_marketplaces(self) -> list[ClientMarketplace]:
-        return self.client_info.marketplaces
 
     def get_warehouses(self) -> list[Warehouse]:
         return self.client_info.warehouses
@@ -56,17 +39,10 @@ class Client(User):
     def get_profit_tax(self) -> float:
         return self.client_info.profit_tax
 
-
-@dataclass
-class LowPayClient(Client):
-    pass
+    def __str__(self) -> str:
+        return self.name
 
 
 @dataclass
-class MiddlePayClient(Client):
-    pass
-
-
-@dataclass
-class HighPayClient(Client):
+class Admin(User):
     pass
