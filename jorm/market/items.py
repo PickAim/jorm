@@ -139,6 +139,8 @@ class ProductBase(ABC):
     rating: float
     brand: str
     seller: str
+    niche_name: str
+    category_name: str
 
 
 @dataclass
@@ -157,24 +159,3 @@ class Product(ProductDefaultBase, ProductBase):
 
     def get_my_volume(self) -> float:
         return self.width * self.height * self.depth * 1000
-
-
-@dataclass
-class ClientProductBase(ProductBase):
-    niche_name: str
-    category_name: str
-
-
-@dataclass
-class ClientProductDefaultBase(ProductDefaultBase):
-    pass
-
-
-@dataclass
-class ClientProduct(ClientProductDefaultBase, Product, ClientProductBase):
-    pass
-
-
-@dataclass
-class MarketplaceProduct(Product):
-    pass
