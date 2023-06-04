@@ -146,7 +146,7 @@ class ProductBase(ABC):
 @dataclass
 class ProductDefaultBase(ABC):
     history: ProductHistory = field(default_factory=ProductHistory)
-    top_places: SpecifiedTopPlaceDict = field(default_factory=dict)
+    top_places: SpecifiedTopPlaceDict = field(default_factory=SpecifiedTopPlaceDict)
     width: float = 0
     height: float = 0
     depth: float = 0
