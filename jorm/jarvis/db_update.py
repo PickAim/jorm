@@ -37,7 +37,7 @@ class JORMChanger(ABC):
     def save_unit_economy_request(self, request: UnitEconomyRequest,
                                   result: UnitEconomyResult,
                                   request_info: RequestInfo,
-                                  user_id: int) -> int:
+                                  user_id: int, marketplace_id: int) -> int:
         pass
 
     @abstractmethod
