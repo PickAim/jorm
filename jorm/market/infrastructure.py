@@ -110,6 +110,8 @@ class Warehouse(ABC):
         return self.name
 
     def get_niche_commission(self, niche: Niche) -> float:
+        if niche is None:
+            return 0.0
         return niche.commissions[self.handler_type]
 
     def calculate_logistic_to_customer_price(self, liters: float) -> int:
