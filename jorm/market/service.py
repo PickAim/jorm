@@ -9,12 +9,17 @@ class RequestInfo:
     name: str = ""
 
 
+class Request:
+    pass
+
+
 @dataclass
-class UnitEconomyRequest:
+class UnitEconomyRequest(Request):
     buy: int
     pack: int
     niche: str
     category: str
+    marketplace_id: int
     transit_count: int = -1
     transit_price: int = -1
     market_place_transit_price: int = -1
@@ -22,12 +27,18 @@ class UnitEconomyRequest:
 
 
 @dataclass
-class FrequencyRequest:
-    search_str: str
+class FrequencyRequest(Request):
+    niche_name: str
+    category_name: str
+    marketplace_id: int
+
+
+class Result:
+    pass
 
 
 @dataclass
-class UnitEconomyResult:
+class UnitEconomyResult(Result):
     product_cost: int
     pack_cost: int
     marketplace_commission: int
@@ -41,7 +52,7 @@ class UnitEconomyResult:
 
 
 @dataclass
-class FrequencyResult:
+class FrequencyResult(Result):
     frequencies: dict[int, int]
 
     def get_graph_coordinates(self) -> tuple[list[int], list[int]]:
