@@ -29,6 +29,10 @@ class UserInfoCollector(ABC):
     def get_token_rnd_part(self, user_id: int, imprint: str, token_type: TokenType) -> str:
         pass
 
+    @abstractmethod
+    def get_users_warehouses(self, user_id: int, marketplace_id: int) -> list[Warehouse]:
+        pass
+
 
 class JORMCollector(ABC):
 

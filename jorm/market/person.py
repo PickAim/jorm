@@ -5,7 +5,6 @@ from enum import Enum
 from .infrastructure import Warehouse
 
 
-
 @dataclass
 class Account:
     email: str
