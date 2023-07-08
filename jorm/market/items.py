@@ -81,6 +81,8 @@ class ProductHistory:
         return start_idx, end_idx
 
     def get_all_leftovers(self) -> dict[int, list[SpecifiedLeftover]]:
+        if len(self.__history) == 0:
+            return {}
         last_history_unit: ProductHistoryUnit = self.__history[-1]
         warehouse_id_to_leftover: dict[int, list[SpecifiedLeftover]] = {
             warehouse_id: last_history_unit.leftover[warehouse_id]
@@ -89,6 +91,8 @@ class ProductHistory:
         return warehouse_id_to_leftover
 
     def get_all_mapped_leftovers(self) -> dict[int, dict[str, int]]:
+        if len(self.__history) == 0:
+            return {}
         last_history_unit: ProductHistoryUnit = self.__history[-1]
         return last_history_unit.leftover.get_mapped_leftovers()
 
