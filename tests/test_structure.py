@@ -83,13 +83,6 @@ class StructureTest(unittest.TestCase):
         self.assertEqual(0, down[321]['l'].sum)
         self.assertEqual(-5, down[321]['p'].sum)
 
-    def test_frequency_result(self):
-        freq: dict[int, int] = {1: 4, 2: 5, 3: 6}
-        freq_result = FrequencyResult(freq)
-        x, y = freq_result.get_graph_coordinates()
-        self.assertEqual(x, [1, 2, 3])
-        self.assertEqual(y, [4, 5, 6])
-
     def test_dict_wrong_types_insertion(self):
         storage_dict = StorageDict()
         try:

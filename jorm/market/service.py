@@ -53,11 +53,5 @@ class UnitEconomyResult(Result):
 
 @dataclass
 class FrequencyResult(Result):
-    frequencies: dict[int, int]
-
-    def get_graph_coordinates(self) -> tuple[list[int], list[int]]:
-        x, y = [], []
-        for key in self.frequencies.keys():
-            x.append(key)
-            y.append(self.frequencies[key])
-        return x, y
+    x: list[int]
+    y: list[int]
