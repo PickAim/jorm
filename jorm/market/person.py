@@ -14,7 +14,7 @@ class Account:
 
 
 class UserPrivilege(Enum):
-    DUNGEON_MASTER = 0
+    DUNGEON_MASTER = 100
     BASIC = 1
     ADVANCED = 2
     PRO = 3
