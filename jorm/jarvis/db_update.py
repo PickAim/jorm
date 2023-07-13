@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 
+from jorm.market.items import Product
+
 from jorm.market.infrastructure import Niche
 
 from jorm.market.service import UnitEconomyRequest, UnitEconomyResult, FrequencyRequest, FrequencyResult, RequestInfo
@@ -57,4 +59,12 @@ class JORMChanger(ABC):
 
     @abstractmethod
     def load_new_niche(self, niche_name: str) -> Niche:
+        pass
+
+    @abstractmethod
+    def load_user_products(self, user: User) -> dict[int, list[Product]]:
+        pass
+
+    @abstractmethod
+    def load_user_warehouse(self, user: User) -> dict[int, list[Product]]:
         pass

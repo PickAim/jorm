@@ -27,6 +27,7 @@ class User(ABC):
     privilege: UserPrivilege = UserPrivilege.BASIC
     warehouses: list[Warehouse] = field(default_factory=list)
     profit_tax: float = 0.0
+    marketplace_keys: dict[int, str] = field(default_factory=dict)
 
     def __str__(self) -> str:
         return self.name
