@@ -14,12 +14,16 @@ class Request:
 
 
 @dataclass
-class UnitEconomyRequest(Request):
-    buy: int
-    pack: int
+class NicheRequest(Request):
     niche: str
     category: str
     marketplace_id: int
+
+
+@dataclass
+class UnitEconomyRequest(NicheRequest):
+    buy: int
+    pack: int
     transit_count: int = -1
     transit_price: int = -1
     market_place_transit_price: int = -1
@@ -27,10 +31,8 @@ class UnitEconomyRequest(Request):
 
 
 @dataclass
-class FrequencyRequest(Request):
-    niche_name: str
-    category_name: str
-    marketplace_id: int
+class FrequencyRequest(NicheRequest):
+    pass
 
 
 class Result:
