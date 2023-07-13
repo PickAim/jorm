@@ -20,13 +20,25 @@ class Niche(ABC):
     name: str
     commissions: dict[HandlerType, float]
     returned_percent: float
-    products: list[Product] = field(default_factory=list)
+    _products: list[Product] = field(default_factory=list)
     request_rate: int = 0
+
+    @property
+    def products(self):
+        return self._products
+
+    @products.setter
+    def products(self, products: list[Product]):
+        self._products = products
+        self.__calc_cost_data()
 
     def __str__(self) -> str:
         return self.name
 
     def __post_init__(self):
+        self.__calc_cost_data()
+
+    def __calc_cost_data(self):
         self.cost_data: ndarray = np.array(
             [product.cost for product in self.products])
         self.cost_data.sort()
