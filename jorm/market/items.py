@@ -68,6 +68,8 @@ class ProductHistory:
         return result
 
     def __get_date_indexes(self, from_date: datetime) -> tuple[int, int]:
+        if len(self.__history) == 0:
+            return -1, -1
         end_idx = len(self.__history) - 1
         # two element ass minimum
         while self.__history[end_idx].unit_date > from_date and end_idx > 1:

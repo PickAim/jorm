@@ -3,7 +3,6 @@ import unittest
 
 from jorm.market.infrastructure import Warehouse, Address, HandlerType
 from jorm.market.items import ProductHistoryUnit, ProductHistory, Product
-from jorm.market.service import FrequencyResult
 from jorm.support.types import StorageDict, SpecifiedLeftover
 
 
