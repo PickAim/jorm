@@ -27,7 +27,7 @@ class UserInfoCollector(ABC):
 
 class JORMCollector(ABC):
     @abstractmethod
-    def get_warehouse(self, warehouse_name: str) -> Warehouse | None:
+    def get_warehouse(self, warehouse_name: str, marketplace_id: int) -> Warehouse | None:
         pass
 
     @abstractmethod
