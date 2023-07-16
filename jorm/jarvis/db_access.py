@@ -61,5 +61,9 @@ class JORMCollector(ABC):
         pass
 
     @abstractmethod
-    def get_niche(self, niche_name: str, category_name: str, marketplace_id: int) -> Niche | None:
+    def get_all_niches(self, category_id: int, marketplace_id: int) -> dict[int, Niche]:
+        pass
+
+    @abstractmethod
+    def get_niche(self, niche_name: str, category_id: int, marketplace_id: int) -> Niche | None:
         pass
