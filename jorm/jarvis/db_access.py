@@ -61,7 +61,7 @@ class JORMCollector(ABC):
         pass
 
     @abstractmethod
-    def get_all_niches(self, category_id: int, marketplace_id: int) -> dict[int, Niche]:
+    def get_all_niches(self, category_id: int) -> dict[int, Niche]:
         pass
 
     @abstractmethod
