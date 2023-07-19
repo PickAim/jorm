@@ -31,15 +31,15 @@ class JORMCollector(ABC):
         pass
 
     @abstractmethod
-    def get_all_warehouses(self, marketplace_id: int) -> list[Warehouse]:
+    def get_all_warehouses(self, marketplace_id: int) -> dict[int, Warehouse]:
         pass
 
     @abstractmethod
-    def get_products_by_user(self, user_id: int) -> list[Product]:
+    def get_products_by_user(self, user_id: int) -> dict[int, Product]:
         pass
 
     @abstractmethod
-    def get_users_warehouses(self, user_id: int, marketplace_id: int) -> list[Warehouse]:
+    def get_users_warehouses(self, user_id: int, marketplace_id: int) -> dict[int, Warehouse]:
         pass
 
     @abstractmethod
