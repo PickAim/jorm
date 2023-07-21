@@ -35,6 +35,10 @@ class JORMCollector(ABC):
         pass
 
     @abstractmethod
+    def get_all_warehouses_atomic(self, marketplace_id: int) -> dict[int, Warehouse]:
+        pass
+
+    @abstractmethod
     def get_products_by_user(self, user_id: int) -> dict[int, Product]:
         pass
 
@@ -62,6 +66,18 @@ class JORMCollector(ABC):
 
     @abstractmethod
     def get_all_niches(self, category_id: int) -> dict[int, Niche]:
+        pass
+
+    @abstractmethod
+    def get_all_marketplaces_atomic(self) -> dict[int, Marketplace]:
+        pass
+
+    @abstractmethod
+    def get_all_categories_atomic(self, marketplace_id: int) -> dict[int, Category]:
+        pass
+
+    @abstractmethod
+    def get_all_niches_atomic(self, category_id: int) -> dict[int, Niche]:
         pass
 
     @abstractmethod
