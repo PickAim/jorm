@@ -16,7 +16,7 @@ class Request:
 @dataclass
 class NicheRequest(Request):
     niche: str
-    category: str
+    category_id: int
     marketplace_id: int
 
 
