@@ -10,7 +10,6 @@ class UserInfoChanger(ABC):
     @abstractmethod
     def update_session_tokens(self, user_id: int, old_update_token: str,
                               new_access_token: str, new_update_token: str) -> None:
-        # add exceptions
         pass
 
     @abstractmethod
@@ -27,11 +26,31 @@ class UserInfoChanger(ABC):
         pass
 
     @abstractmethod
+    def add_marketplace_api_key(self, api_key: str, user_id: int, marketplace_id: int) -> None:
+        pass
+
+    @abstractmethod
     def delete_tokens_for_user(self, user_id: int, imprint_token: str) -> None:
         pass
 
 
 class JORMChanger(ABC):
+    @abstractmethod
+    def update_all_categories(self, marketplace_id: int) -> None:
+        pass
+
+    @abstractmethod
+    def update_all_niches(self, category_id: int) -> None:
+        pass
+
+    @abstractmethod
+    def update_niche(self, niche_id: int) -> Niche:
+        pass
+
+    @abstractmethod
+    def update_product(self, product_id: int) -> Product:
+        pass
+
     @abstractmethod
     def save_unit_economy_request(self, request: UnitEconomyRequest,
                                   result: UnitEconomyResult,
