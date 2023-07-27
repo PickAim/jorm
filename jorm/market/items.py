@@ -18,6 +18,15 @@ class ProductHistoryUnit:
     def __str__(self) -> str:
         return f'{self.unit_date}: cost - {self.cost}; leftover - {str(self.leftover)};'
 
+    def __eq__(self, other) -> bool:
+        if self.cost != other.cost:
+            return False
+        if self.unit_date != other.unit_date:
+            return False
+        if self.leftover != other.leftover:
+            return False
+        return True
+
 
 class ProductHistory:
     def __init__(self, history: Iterable[ProductHistoryUnit] | None = None):
@@ -27,6 +36,15 @@ class ProductHistory:
 
     def __str__(self) -> str:
         return '\n'.join([str(unit) for unit in self.__history])
+
+    def __eq__(self, other):
+        other_history: list[ProductHistoryUnit] = other.get_history()
+        if len(self.__history) != len(other.get_history()):
+            return False
+        for i in range(len(self.__history)):
+            if self.__history[i] != other_history[i]:
+                return False
+        return True
 
     def __post_init__(self):
         self.__history = sorted(

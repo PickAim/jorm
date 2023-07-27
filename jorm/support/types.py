@@ -38,7 +38,7 @@ class SpecifiedLeftover:
         return f'{self.specify}: {self.leftover}'
 
     def __eq__(self, other):
-        return self.specify == other.specify
+        return self.specify == other.specify and self.leftover == other.leftover
 
 
 class StorageDict(dict[int, list[SpecifiedLeftover]]):
