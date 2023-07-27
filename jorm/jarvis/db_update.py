@@ -74,7 +74,7 @@ class JORMChanger(ABC):
         pass
 
     @abstractmethod
-    def load_new_niche(self, niche_name: str) -> Niche:
+    def load_new_niche(self, niche_name: str) -> Niche | None:
         pass
 
     @abstractmethod
