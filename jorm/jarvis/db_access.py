@@ -39,7 +39,7 @@ class JORMCollector(ABC):
         pass
 
     @abstractmethod
-    def get_products_by_user(self, user_id: int) -> dict[int, Product]:
+    def get_products_by_user(self, user_id: int, marketplace_id: int) -> dict[int, Product]:
         pass
 
     @abstractmethod
