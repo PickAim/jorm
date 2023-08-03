@@ -30,6 +30,14 @@ class UserInfoChanger(ABC):
         pass
 
     @abstractmethod
+    def delete_marketplace_api_key(self, user_id: int, marketplace_id: int) -> None:
+        pass
+
+    @abstractmethod
+    def delete_account(self, user_id: int) -> None:
+        pass
+
+    @abstractmethod
     def delete_tokens_for_user(self, user_id: int, imprint_token: str) -> None:
         pass
 
