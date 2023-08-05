@@ -48,15 +48,15 @@ class JORMChanger(ABC):
         pass
 
     @abstractmethod
-    def update_all_niches(self, category_id: int) -> None:
+    def update_all_niches(self, category_id: int, marketplace_id: int) -> None:
         pass
 
     @abstractmethod
-    def update_niche(self, niche_id: int) -> Niche:
+    def update_niche(self, niche_id: int, category_id: int, marketplace_id: int) -> Niche:
         pass
 
     @abstractmethod
-    def update_product(self, product_id: int) -> Product:
+    def update_product(self, product_id: int, marketplace_id: int) -> Product:
         pass
 
     @abstractmethod
@@ -82,7 +82,7 @@ class JORMChanger(ABC):
         pass
 
     @abstractmethod
-    def load_new_niche(self, niche_name: str) -> Niche | None:
+    def load_new_niche(self, niche_name: str, marketplace_id: int) -> Niche | None:
         pass
 
     @abstractmethod
