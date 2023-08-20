@@ -86,6 +86,7 @@ class ProductHistory:
         return result
 
     def __get_date_indexes(self, from_date: datetime) -> tuple[int, int]:
+        self.__history = sorted(self.__history, key=lambda unit: unit.unit_date)
         if len(self.__history) == 0:
             return -1, -1
         end_idx = len(self.__history) - 1
