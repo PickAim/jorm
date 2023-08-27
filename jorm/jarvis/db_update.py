@@ -44,19 +44,7 @@ class UserInfoChanger(ABC):
 
 class JORMChanger(ABC):
     @abstractmethod
-    def update_all_categories(self, marketplace_id: int) -> None:
-        pass
-
-    @abstractmethod
-    def update_all_niches(self, category_id: int, marketplace_id: int) -> None:
-        pass
-
-    @abstractmethod
     def update_niche(self, niche_id: int, category_id: int, marketplace_id: int) -> Niche:
-        pass
-
-    @abstractmethod
-    def update_product(self, product_id: int, marketplace_id: int) -> Product:
         pass
 
     @abstractmethod
