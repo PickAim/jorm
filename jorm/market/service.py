@@ -15,24 +15,26 @@ class Request:
 
 @dataclass
 class NicheRequest(Request):
-    niche: str
+    niche_id: int
     category_id: int
     marketplace_id: int
 
 
 @dataclass
-class UnitEconomyRequest(NicheRequest):
-    buy: int
-    pack: int
-    transit_count: int = -1
-    transit_price: int = -1
-    market_place_transit_price: int = -1
-    warehouse_name: str = None
+class SimpleEconomyRequest(NicheRequest):
+    product_exist_cost: int  # user defined cost for product
+    cost_price: int  # how much it cost for user
+    length: int
+    width: int
+    height: int
+    mass: int
+    target_warehouse_name: str
 
 
 @dataclass
-class FrequencyRequest(NicheRequest):
-    pass
+class TransitEconomyRequest(SimpleEconomyRequest):
+    transit_price: int
+    transit_count: int
 
 
 class Result:
@@ -40,20 +42,22 @@ class Result:
 
 
 @dataclass
-class UnitEconomyResult(Result):
-    product_cost: int
-    pack_cost: int
-    marketplace_commission: int
+class SimpleEconomyResult(Result):
+    result_cost: int  # recommended or user defined cost
     logistic_price: int
     storage_price: int
-    margin: int
-    recommended_price: int
-    transit_profit: int
+    purchase_cost: int  # cost price OR cost price + transit/count
+    marketplace_expanses: int
+    absolute_margin: int
+    relative_margin: float
     roi: float
-    transit_margin: float
 
 
 @dataclass
-class FrequencyResult(Result):
-    x: list[int]
-    y: list[int]
+class TransitEconomyResult(SimpleEconomyResult):
+    purchase_investments: int
+    commercial_expanses: int
+    tax_expanses: int
+    absolute_transit_margin: int
+    relative_transit_margin: float
+    transit_roi: float

@@ -1,6 +1,6 @@
 import datetime as date_root
 from datetime import datetime
-from abc import ABC, abstractmethod
+from abc import ABC
 from dataclasses import dataclass, field
 from typing import Iterable
 
