@@ -110,6 +110,7 @@ class Warehouse(ABC):
     global_id: int
     handler_type: HandlerType
     address: Address
+    main_coefficient: float = 1.0
     products: list[Product] = field(default_factory=list)
     basic_logistic_to_customer_commission: int = 0
     additional_logistic_to_customer_commission: float = 0
