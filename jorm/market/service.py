@@ -35,29 +35,3 @@ class SimpleEconomyRequest(NicheRequest):
 class TransitEconomyRequest(SimpleEconomyRequest):
     transit_price: int
     transit_count: int
-
-
-class Result:
-    pass
-
-
-@dataclass
-class SimpleEconomyResult(Result):
-    result_cost: int  # recommended or user defined cost
-    logistic_price: int
-    storage_price: int
-    purchase_cost: int  # cost price OR cost price + transit/count
-    marketplace_expanses: int
-    absolute_margin: int
-    relative_margin: float
-    roi: float
-
-
-@dataclass
-class TransitEconomyResult(SimpleEconomyResult):
-    purchase_investments: int
-    commercial_expanses: int
-    tax_expanses: int
-    absolute_transit_margin: int
-    relative_transit_margin: float
-    transit_roi: float

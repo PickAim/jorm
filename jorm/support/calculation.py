@@ -1,8 +1,34 @@
 from dataclasses import dataclass
 
 
+class CalculationResult:
+    pass
+
+
 @dataclass
-class GreenTradeZoneCalculateResult:
+class SimpleEconomyResult(CalculationResult):
+    result_cost: int  # recommended or user defined cost
+    logistic_price: int
+    storage_price: int
+    purchase_cost: int  # cost price OR cost price + transit/count
+    marketplace_expanses: int
+    absolute_margin: int
+    relative_margin: float
+    roi: float
+
+
+@dataclass
+class TransitEconomyResult(SimpleEconomyResult):
+    purchase_investments: int
+    commercial_expanses: int
+    tax_expanses: int
+    absolute_transit_margin: int
+    relative_transit_margin: float
+    transit_roi: float
+
+
+@dataclass
+class GreenTradeZoneCalculateResult(CalculationResult):
     frequencies: list[int]
     segments: list[tuple[int, int]]
     best_segment_idx: int
@@ -24,7 +50,7 @@ class GreenTradeZoneCalculateResult:
 
 
 @dataclass
-class NicheCharacteristicsCalculateResult:
+class NicheCharacteristicsCalculateResult(CalculationResult):
     card_count: int
     niche_profit: int
     card_trade_count: int

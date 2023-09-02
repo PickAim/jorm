@@ -3,9 +3,10 @@ from abc import ABC, abstractmethod
 from jorm.market.infrastructure import Niche, Warehouse, Marketplace, Category
 from jorm.market.items import Product
 from jorm.market.person import Account, User
-from jorm.market.service import SimpleEconomyRequest, SimpleEconomyResult, RequestInfo, \
-    TransitEconomyRequest, TransitEconomyResult
+from jorm.market.service import SimpleEconomyRequest, RequestInfo, \
+    TransitEconomyRequest
 from jorm.server.token.types import TokenType
+from jorm.support.calculation import TransitEconomyResult, SimpleEconomyResult
 
 
 class UserInfoCollector(ABC):
