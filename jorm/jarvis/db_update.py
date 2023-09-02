@@ -62,10 +62,6 @@ class JORMChanger(ABC):
         pass
 
     @abstractmethod
-    def delete_frequency_request(self, request_id: int, user_id: int) -> None:
-        pass
-
-    @abstractmethod
     def load_new_niche(self, niche_name: str, marketplace_id: int) -> Niche | None:
         pass
 
