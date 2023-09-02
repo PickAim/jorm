@@ -4,7 +4,7 @@ from jorm.market.infrastructure import Niche, Warehouse, Marketplace, Category
 from jorm.market.items import Product
 from jorm.market.person import Account, User
 from jorm.market.service import SimpleEconomyRequest, SimpleEconomyResult, RequestInfo, \
-    TransitEconomyRequest
+    TransitEconomyRequest, TransitEconomyResult
 from jorm.server.token.types import TokenType
 
 
@@ -53,7 +53,13 @@ class JORMCollector(ABC):
 
     @abstractmethod
     def get_all_unit_economy_results(self, user_id: int) \
-            -> list[tuple[SimpleEconomyRequest | TransitEconomyRequest, SimpleEconomyResult, RequestInfo]]:
+            -> list[
+                tuple[
+                    SimpleEconomyRequest | TransitEconomyRequest,
+                    SimpleEconomyResult | TransitEconomyResult,
+                    RequestInfo
+                ]
+            ]:
         pass
 
     @abstractmethod
