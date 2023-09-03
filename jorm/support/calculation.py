@@ -1,31 +1,34 @@
 from dataclasses import dataclass
 
 
-@dataclass
-class UnitEconomyCalculateData:
-    buy_price: int
-    pack_price: int
-    transit_price: int = 0.0
-    transit_count: int = 0.0
-    market_place_transit_price: int = 0.0
+class CalculationResult:
+    pass
 
 
 @dataclass
-class UnitEconomyCalculateResult:
-    product_cost: int  # Закупочная себестоимость
-    pack_cost: int  # Упаковка
-    marketplace_commission: int  # Комиссия маркетплейса
-    logistic_price: int  # Логистика
-    storage_price: int  # Хранение
-    margin: int  # Маржа в копейках
-    recommended_price: int
-    transit_profit: int  # Чистая прибыль с транзита
-    roi: float  # ROI
-    transit_margin: float  # Маржа с транзита (%)
+class SimpleEconomyResult(CalculationResult):
+    result_cost: int  # recommended or user defined cost
+    logistic_price: int
+    storage_price: int
+    purchase_cost: int  # cost price OR cost price + transit/count
+    marketplace_expanses: int
+    absolute_margin: int
+    relative_margin: float
+    roi: float
 
 
 @dataclass
-class GreenTradeZoneCalculateResult:
+class TransitEconomyResult(SimpleEconomyResult):
+    purchase_investments: int
+    commercial_expanses: int
+    tax_expanses: int
+    absolute_transit_margin: int
+    relative_transit_margin: float
+    transit_roi: float
+
+
+@dataclass
+class GreenTradeZoneCalculateResult(CalculationResult):
     frequencies: list[int]
     segments: list[tuple[int, int]]
     best_segment_idx: int
@@ -47,7 +50,7 @@ class GreenTradeZoneCalculateResult:
 
 
 @dataclass
-class NicheCharacteristicsCalculateResult:
+class NicheCharacteristicsCalculateResult(CalculationResult):
     card_count: int
     niche_profit: int
     card_trade_count: int

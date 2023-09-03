@@ -3,8 +3,10 @@ from abc import ABC, abstractmethod
 from jorm.market.infrastructure import Niche, Warehouse, Marketplace, Category
 from jorm.market.items import Product
 from jorm.market.person import Account, User
-from jorm.market.service import UnitEconomyRequest, UnitEconomyResult, RequestInfo, FrequencyRequest, FrequencyResult
+from jorm.market.service import SimpleEconomyRequest, RequestInfo, \
+    TransitEconomyRequest
 from jorm.server.token.types import TokenType
+from jorm.support.calculation import TransitEconomyResult, SimpleEconomyResult
 
 
 class UserInfoCollector(ABC):
@@ -52,12 +54,13 @@ class JORMCollector(ABC):
 
     @abstractmethod
     def get_all_unit_economy_results(self, user_id: int) \
-            -> list[tuple[UnitEconomyRequest, UnitEconomyResult, RequestInfo]]:
-        pass
-
-    @abstractmethod
-    def get_all_frequency_results(self, user_id: int) \
-            -> list[tuple[FrequencyRequest, FrequencyResult, RequestInfo]]:
+            -> list[
+                tuple[
+                    SimpleEconomyRequest | TransitEconomyRequest,
+                    SimpleEconomyResult | TransitEconomyResult,
+                    RequestInfo
+                ]
+            ]:
         pass
 
     @abstractmethod
