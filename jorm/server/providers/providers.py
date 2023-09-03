@@ -63,6 +63,10 @@ class DataProviderWithoutKey(DataProvider, ABC):
     def get_storage_dict(self, product_id: int) -> StorageDict:
         pass
 
+    @abstractmethod
+    def get_delivery_address(self) -> StorageDict:
+        pass
+
 
 class DataProviderWithKey(DataProvider, ABC):
     def __init__(self, api_key: str, data_provider_initializer_class: Type[DataProviderInitializer]):
