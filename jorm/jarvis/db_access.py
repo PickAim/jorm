@@ -3,10 +3,8 @@ from abc import ABC, abstractmethod
 from jorm.market.infrastructure import Niche, Warehouse, Marketplace, Category
 from jorm.market.items import Product
 from jorm.market.person import Account, User
-from jorm.market.service import SimpleEconomyRequest, RequestInfo, \
-    TransitEconomyRequest
+from jorm.market.service import SimpleEconomySaveObject, TransitEconomySaveObject
 from jorm.server.token.types import TokenType
-from jorm.support.calculation import TransitEconomyResult, SimpleEconomyResult
 
 
 class UserInfoCollector(ABC):
@@ -52,15 +50,10 @@ class JORMCollector(ABC):
     def get_users_warehouses(self, user_id: int, marketplace_id: int) -> dict[int, Warehouse]:
         pass
 
-    @abstractmethod
-    def get_all_unit_economy_results(self, user_id: int) \
-            -> list[
-                tuple[
-                    SimpleEconomyRequest | TransitEconomyRequest,
-                    SimpleEconomyResult | TransitEconomyResult,
-                    RequestInfo
-                ]
-            ]:
+    def get_all_simple_economy_results(self, user_id: int) -> list[SimpleEconomySaveObject]:
+        pass
+
+    def get_all_transit_economy_results(self, user_id: int) -> list[TransitEconomySaveObject]:
         pass
 
     @abstractmethod
@@ -89,4 +82,8 @@ class JORMCollector(ABC):
 
     @abstractmethod
     def get_niche(self, niche_name: str, category_id: int, marketplace_id: int) -> Niche | None:
+        pass
+
+    @abstractmethod
+    def get_niche_by_id(self, niche_id: int, category_id: int, marketplace_id: int) -> Niche | None:
         pass
