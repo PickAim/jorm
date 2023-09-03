@@ -92,3 +92,7 @@ class UserMarketDataProvider(DataProviderWithKey, ABC):
     @abstractmethod
     def get_nearest_keywords(self, word: str) -> list[str]:
         pass
+
+    @abstractmethod
+    def get_user_warehouses(self) -> list[Warehouse]:
+        pass
