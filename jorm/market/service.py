@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from datetime import datetime
 
+from jorm.support.calculation import SimpleEconomyResult, TransitEconomyResult
+
 
 @dataclass
 class RequestInfo:
@@ -35,3 +37,20 @@ class SimpleEconomyRequest(NicheRequest):
 class TransitEconomyRequest(SimpleEconomyRequest):
     transit_price: int
     transit_count: int
+
+
+@dataclass
+class SaveObject:
+    info: RequestInfo
+
+
+@dataclass
+class SimpleEconomySaveObject(SaveObject):
+    user_result: tuple[SimpleEconomyRequest, SimpleEconomyResult]
+    recommended_result: tuple[SimpleEconomyRequest, SimpleEconomyResult]
+
+
+@dataclass
+class TransitEconomySaveObject(SaveObject):
+    user_result: tuple[TransitEconomyRequest, TransitEconomyResult]
+    recommended_result: tuple[TransitEconomyRequest, TransitEconomyResult]

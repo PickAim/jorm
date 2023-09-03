@@ -3,8 +3,7 @@ from abc import ABC, abstractmethod
 from jorm.market.infrastructure import Niche, Warehouse
 from jorm.market.items import Product
 from jorm.market.person import User, Account
-from jorm.market.service import SimpleEconomyRequest, RequestInfo, TransitEconomyRequest
-from jorm.support.calculation import SimpleEconomyResult, TransitEconomyResult
+from jorm.market.service import SimpleEconomySaveObject, TransitEconomySaveObject
 
 
 class UserInfoChanger(ABC):
@@ -49,17 +48,19 @@ class JORMChanger(ABC):
         pass
 
     @abstractmethod
-    def save_simple_economy_request(self, request: SimpleEconomyRequest,
-                                    result: SimpleEconomyResult, request_info: RequestInfo, user_id: int) -> int:
+    def save_simple_economy_request(self, save_object: SimpleEconomySaveObject, user_id: int) -> int:
         pass
 
     @abstractmethod
-    def save_transit_economy_request(self, request: TransitEconomyRequest,
-                                     result: TransitEconomyResult, request_info: RequestInfo, user_id: int) -> int:
+    def save_transit_economy_request(self, save_object: TransitEconomySaveObject, user_id: int) -> int:
         pass
 
     @abstractmethod
-    def delete_unit_economy_request(self, request_id: int, user_id: int) -> None:
+    def delete_simple_economy_request(self, request_id: int, user_id: int) -> None:
+        pass
+
+    @abstractmethod
+    def delete_transit_economy_request(self, request_id: int, user_id: int) -> None:
         pass
 
     @abstractmethod
