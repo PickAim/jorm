@@ -29,7 +29,6 @@ class TransitEconomyResult(SimpleEconomyResult):
 
 @dataclass
 class GreenTradeZoneCalculateResult(CalculationResult):
-    frequencies: list[int]
     segments: list[tuple[int, int]]
     best_segment_idx: int
 
