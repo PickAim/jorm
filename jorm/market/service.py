@@ -18,6 +18,7 @@ class Request:
 @dataclass
 class SimpleEconomyRequest(Request):
     niche_id: int
+    marketplace_id: int
     product_exist_cost: int  # user defined cost for product
     cost_price: int  # how much it cost for user
     length: float
