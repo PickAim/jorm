@@ -81,3 +81,19 @@ class SpecifiedTopPlaceDict(dict[str, int]):
         if mapping is None:
             mapping = {}
         super().__init__(mapping)
+
+
+@dataclass
+class EconomyConstants:
+    max_mass: float
+    max_side_sum: float
+    max_side_length: float
+    max_standard_volume_in_liters: float
+    return_price: int
+    oversize_logistic_price: int
+    oversize_storage_price: int
+    standard_warehouse_logistic_price: int
+    standard_warehouse_storage_price: int
+    nds_tax: float
+    commercial_tax: float
+    self_employed_tax: float

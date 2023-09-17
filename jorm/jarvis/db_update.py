@@ -4,6 +4,7 @@ from jorm.market.infrastructure import Niche, Warehouse
 from jorm.market.items import Product
 from jorm.market.person import User, Account
 from jorm.market.service import SimpleEconomySaveObject, TransitEconomySaveObject
+from jorm.support.types import EconomyConstants
 
 
 class UserInfoChanger(ABC):
@@ -45,6 +46,10 @@ class UserInfoChanger(ABC):
 class JORMChanger(ABC):
     @abstractmethod
     def update_niche(self, niche_id: int, category_id: int, marketplace_id: int) -> Niche:
+        pass
+
+    @abstractmethod
+    def update_economy_constants(self, marketplace_id: int, economy_constants: EconomyConstants) -> None:
         pass
 
     @abstractmethod

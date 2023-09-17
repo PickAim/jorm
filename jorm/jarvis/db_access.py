@@ -5,6 +5,7 @@ from jorm.market.items import Product
 from jorm.market.person import Account, User
 from jorm.market.service import SimpleEconomySaveObject, TransitEconomySaveObject
 from jorm.server.token.types import TokenType
+from jorm.support.types import EconomyConstants
 
 
 class UserInfoCollector(ABC):
@@ -27,7 +28,11 @@ class UserInfoCollector(ABC):
 
 class JORMCollector(ABC):
     @abstractmethod
-    def get_warehouse(self, warehouse_name: str, marketplace_id: int) -> Warehouse | None:
+    def get_economy_constants(self, marketplace_id: int) -> EconomyConstants | None:
+        pass
+
+    @abstractmethod
+    def get_warehouse(self, warehouse_id: int) -> Warehouse | None:
         pass
 
     @abstractmethod
