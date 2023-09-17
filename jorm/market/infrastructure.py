@@ -112,12 +112,6 @@ class Warehouse(ABC):
     address: Address
     main_coefficient: float = 1.0
     products: list[Product] = field(default_factory=list)
-    basic_logistic_to_customer_commission: int = 0
-    additional_logistic_to_customer_commission: float = 0
-    logistic_from_customer_commission: int = 0
-    basic_storage_commission: int = 0
-    additional_storage_commission: float = 0
-    mono_palette_storage_commission: int = 0
 
     def __str__(self) -> str:
         return self.name
@@ -126,21 +120,6 @@ class Warehouse(ABC):
         if niche is None:
             return 0.0
         return niche.commissions[self.handler_type]
-
-    def calculate_logistic_to_customer_price(self, liters: float) -> int:
-        return int(self.basic_logistic_to_customer_commission
-                   + self.additional_logistic_to_customer_commission * liters)
-
-    def calculate_logistic_from_customer_price(self) -> int:
-        return self.logistic_from_customer_commission
-
-    def calculate_storage_price(self, liters: float) -> int:
-        return int(self.basic_storage_commission
-                   + self.additional_storage_commission * liters)
-
-    def calculate_logistic_price_for_one(self, liters: float, returns_percent: float) -> int:
-        return self.calculate_logistic_to_customer_price(liters) \
-            + int(self.calculate_logistic_from_customer_price() * returns_percent)
 
 
 @dataclass
