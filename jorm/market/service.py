@@ -29,8 +29,9 @@ class SimpleEconomyRequest(Request):
 
 @dataclass
 class TransitEconomyRequest(SimpleEconomyRequest):
-    transit_price: int
-    transit_count: int
+    logistic_price: int
+    logistic_count: int
+    transit_cost_for_cubic_meter: float
 
 
 @dataclass
