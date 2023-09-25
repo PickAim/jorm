@@ -4,6 +4,7 @@ from jorm.market.infrastructure import Niche, Warehouse
 from jorm.market.items import Product
 from jorm.market.person import User, Account
 from jorm.market.service import SimpleEconomySaveObject, TransitEconomySaveObject
+from jorm.support.calculation import GreenTradeZoneCalculateResult, NicheCharacteristicsCalculateResult
 from jorm.support.types import EconomyConstants
 
 
@@ -46,6 +47,17 @@ class UserInfoChanger(ABC):
 class JORMChanger(ABC):
     @abstractmethod
     def update_niche(self, niche_id: int, category_id: int, marketplace_id: int) -> Niche:
+        pass
+
+    @abstractmethod
+    def update_green_zone_cache(self, niche_id: int,
+                                green_trade_zone_calc_result: GreenTradeZoneCalculateResult) -> None:
+        pass
+
+    @abstractmethod
+    def update_niche_characteristics_cache(self, niche_id: int,
+                                           niche_characteristics_calc_result: NicheCharacteristicsCalculateResult) \
+            -> None:
         pass
 
     @abstractmethod

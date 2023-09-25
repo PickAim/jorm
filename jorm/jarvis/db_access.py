@@ -5,6 +5,7 @@ from jorm.market.items import Product
 from jorm.market.person import Account, User
 from jorm.market.service import SimpleEconomySaveObject, TransitEconomySaveObject
 from jorm.server.token.types import TokenType
+from jorm.support.calculation import GreenTradeZoneCalculateResult, NicheCharacteristicsCalculateResult
 from jorm.support.types import EconomyConstants
 
 
@@ -55,9 +56,11 @@ class JORMCollector(ABC):
     def get_users_warehouses(self, user_id: int, marketplace_id: int) -> dict[int, Warehouse]:
         pass
 
+    @abstractmethod
     def get_all_simple_economy_results(self, user_id: int) -> list[SimpleEconomySaveObject]:
         pass
 
+    @abstractmethod
     def get_all_transit_economy_results(self, user_id: int) -> list[TransitEconomySaveObject]:
         pass
 
@@ -91,4 +94,16 @@ class JORMCollector(ABC):
 
     @abstractmethod
     def get_niche_by_id(self, niche_id: int) -> Niche | None:
+        pass
+
+    @abstractmethod
+    def get_niche_without_history(self, niche_id: int) -> Niche | None:
+        pass
+
+    @abstractmethod
+    def get_green_zone_cache(self, niche_id: int) -> GreenTradeZoneCalculateResult | None:
+        pass
+
+    @abstractmethod
+    def get_niche_characteristics_cache(self, niche_id: int) -> NicheCharacteristicsCalculateResult | None:
         pass
