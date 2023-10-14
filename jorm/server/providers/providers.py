@@ -30,6 +30,10 @@ class DataProviderWithoutKey(DataProvider, ABC):
         pass
 
     @abstractmethod
+    def get_warehouses(self) -> list[Warehouse]:
+        pass
+
+    @abstractmethod
     def get_product_price_history(self, product_id: int) -> ProductHistory:
         pass
 
