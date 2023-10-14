@@ -20,7 +20,7 @@ class StructureTest(unittest.TestCase):
             Product("Coffee", 10, 12456862, 4.3, "brand", "seller", "g", "g", history=product_history)
         ]
         warehouse = Warehouse("wb", 123, HandlerType.MARKETPLACE,
-                              Address(), main_coefficient=1.0, products=client_products)
+                              Address("wb", "wb"), main_coefficient=1.0, products=client_products)
 
         self.assertEqual("wb", warehouse.__str__())
         self.assertEqual("Coffee (12456862)", warehouse.products[0].__str__())
