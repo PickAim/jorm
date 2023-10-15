@@ -89,5 +89,10 @@ class JORMChanger(ABC):
         pass
 
     @abstractmethod
-    def load_user_warehouse(self, user_id: int, marketplace_id: int) -> list[Warehouse]:
+    def load_user_warehouses(self, user_id: int, marketplace_id: int) -> list[Warehouse]:
         pass
+
+    @abstractmethod
+    def load_all_warehouses(self, user_id: int, marketplace_id: int) -> list[Warehouse]:
+        pass
+

@@ -4,7 +4,6 @@ from jorm.jarvis.initialization import Initializable
 from requests import Session
 from requests.adapters import HTTPAdapter
 
-from jorm.server.providers.commision_resolver import CommissionResolver
 from jorm.support.utils import get_request_json, get_async_request_json
 
 
@@ -13,7 +12,6 @@ class DataProvider(Initializable):
 
     def __init__(self):
         self.session: Session | None = None
-        self.commission_resolver: CommissionResolver | None = None
         self.marketplace_name: str = ""
 
     def reset_session(self):

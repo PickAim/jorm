@@ -100,8 +100,8 @@ class Category(ABC):
 
 @dataclass
 class Address(ABC):
-    # TODO think about fields declaration in this class (street, city, country, etc)
-    address: str = ""
+    region: str
+    street: str
 
 
 @dataclass
