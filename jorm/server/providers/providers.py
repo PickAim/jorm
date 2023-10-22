@@ -30,6 +30,10 @@ class DataProviderWithoutKey(DataProvider, ABC):
         pass
 
     @abstractmethod
+    def get_warehouses_from_file(self) -> list[Warehouse]:
+        pass
+
+    @abstractmethod
     def get_warehouses(self) -> list[Warehouse]:
         pass
 
