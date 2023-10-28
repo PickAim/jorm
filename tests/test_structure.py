@@ -37,13 +37,23 @@ class StructureTest(unittest.TestCase):
         after_trade_storage_dict = StorageDict()
         after_trade_storage_dict[123] = [SpecifiedLeftover('l', 25), SpecifiedLeftover('p', 35)]
 
+        after_trade_storage_dict2 = StorageDict()
+        after_trade_storage_dict2[123] = [SpecifiedLeftover('l', 50), SpecifiedLeftover('p', 35)]
+
+        after_trade_storage_dict3 = StorageDict()
+        after_trade_storage_dict3[123] = [SpecifiedLeftover('l', 15), SpecifiedLeftover('p', 35)]
+
         product_history = ProductHistory([ProductHistoryUnit(1, datetime.datetime(2021, 1, 1), storage_dict),
                                           ProductHistoryUnit(3, datetime.datetime.utcnow(), storage_dict),
-                                          ProductHistoryUnit(5, datetime.datetime.utcnow(), after_trade_storage_dict)])
+                                          ProductHistoryUnit(4, datetime.datetime.utcnow(), after_trade_storage_dict),
+                                          ProductHistoryUnit(4, datetime.datetime.utcnow(), after_trade_storage_dict2),
+                                          ProductHistoryUnit(5, datetime.datetime.utcnow(), after_trade_storage_dict3)])
 
         self.assertEqual(75, storage_dict.get_all_leftovers())
         self.assertEqual(60, after_trade_storage_dict.get_all_leftovers())
-        self.assertEqual(15, product_history.get_last_month_trade_count(datetime.datetime.utcnow()))
+        self.assertEqual(85, after_trade_storage_dict2.get_all_leftovers())
+        self.assertEqual(50, after_trade_storage_dict3.get_all_leftovers())
+        self.assertEqual(50, product_history.get_last_month_trade_count(datetime.datetime.utcnow()))
 
     def test_downturn_calculations0(self):
         storage_dict = StorageDict()
