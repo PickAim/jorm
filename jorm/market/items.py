@@ -164,8 +164,7 @@ class ProductBase(ABC):
     rating: float
     brand: str
     seller: str
-    niche_name: str
-    category_name: str
+    category_niche_list: list[tuple[str, str]]
 
 
 @dataclass

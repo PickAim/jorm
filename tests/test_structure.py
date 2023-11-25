@@ -17,7 +17,7 @@ class StructureTest(unittest.TestCase):
                                           ProductHistoryUnit(3, saved_time, storage_dict)])
 
         client_products = [
-            Product("Coffee", 10, 12456862, 4.3, "brand", "seller", "g", "g", history=product_history)
+            Product("Coffee", 10, 12456862, 4.3, "brand", "seller", category_niche_list=[], history=product_history)
         ]
         warehouse = Warehouse("wb", 123, HandlerType.MARKETPLACE,
                               Address("wb", "wb"), main_coefficient=1.0, products=client_products)
